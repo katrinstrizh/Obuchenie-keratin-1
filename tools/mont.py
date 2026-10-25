@@ -8,18 +8,19 @@ chip,card=ns['chip'],ns['card']
 ver,title,hook,out,order=sys.argv[1:6]
 T='/home/claude/out/snap/M'+ver+'_'
 S='/home/claude/src/'; files={'6274':S+'p6274.mov','6275':S+'p6275.mov','6277':S+'p6277.mov','6279':S+'posle.mov'}
-SEG=float(sys.argv[6]) if len(sys.argv)>6 else 3.4; ids=order.split(','); D=SEG*len(ids); TAIL=1.5; TT=D+TAIL
+SEG=float(sys.argv[6]) if len(sys.argv)>6 else 3.4; ids=order.split(','); CUT1=float(sys.argv[7]) if len(sys.argv)>7 else 0.0
+SEGS=[SEG-CUT1]+[SEG]*(len(ids)-1); D=sum(SEGS); TAIL=1.5; TT=D+TAIL
 O.title_png(title,T+'title.png'); O.name_brand_png(T+'name.png'); O.neon_end_png(T+'neon.png'); O.hook_png(hook,T+'hook.png')
 card(['Посмотрите, какие идеальные концы',''],T+'konc.png')
 card(['ХОЧЕШЬ ТАК НАУЧИТЬСЯ? НАПИШИ МНЕ. ОНЛАЙН.','КАК ДЕЛАТЬ КЕРАТИН ТАК, ПРИ ЭТОМ БЫСТРО: ОНЛАЙН 1000 РУБ. (для опытных мастеров)'],T+'cta.png')
 subprocess.run(['python3','/home/claude/asr/music.py',T+'mus.wav','0.5',str(TT),'104'],check=True)
 V='scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1'
 inp=[]; 
-for i in ids: inp+=['-ss','0.3' if i!='6279' else '0.6','-t',f'{SEG}','-i',files[i]]
+for i,sg in zip(ids,SEGS): inp+=['-ss','0.3' if i!='6279' else '0.6','-t',f'{sg:.2f}','-i',files[i]]
 n=len(ids); pngs=['title','name','neon','hook','konc','cta']
 for p in pngs: inp+=['-loop','1','-t',f'{TT:.2f}','-i',T+p+'.png']
 inp+=['-i',T+'mus.wav']
-fc=[f"[{k}:v]{V},eq=saturation=1.05:contrast=1.03,zoompan=z='1.0+0.06*on/{SEG*30:.0f}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=1080x1920:fps=30[c{k}]" for k in range(n)]
+fc=[f"[{k}:v]{V},eq=saturation=1.05:contrast=1.03,zoompan=z='1.0+0.06*on/{SEGS[k]*30:.0f}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=1080x1920:fps=30[c{k}]" for k in range(n)]
 fc.append(''.join(f'[c{k}]' for k in range(n))+f"concat=n={n}:v=1:a=0[cv]"); fc.append(f"[cv]tpad=stop_mode=add:stop_duration={TAIL}:color=black[bv]")
 b=n; C=D-4.2
 fc+= [f"[{b}:v]format=rgba,fade=in:st=0.1:d=0.3:alpha=1[ti]",f"[{b+1}:v]format=rgba,fade=in:st=2.4:d=0.25:alpha=1,fade=out:st=3.95:d=0.25:alpha=1[nm]",
