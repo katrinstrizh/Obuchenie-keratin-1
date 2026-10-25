@@ -8,7 +8,7 @@ chip,card=ns['chip'],ns['card']
 ver,title,hook,out,order=sys.argv[1:6]
 T='/home/claude/out/snap/M'+ver+'_'
 S='/home/claude/src/'; files={'6274':S+'p6274.mov','6275':S+'p6275.mov','6277':S+'p6277.mov','6279':S+'posle.mov'}
-SEG=3.4; ids=order.split(','); D=SEG*len(ids); TAIL=1.5; TT=D+TAIL
+SEG=float(sys.argv[6]) if len(sys.argv)>6 else 3.4; ids=order.split(','); D=SEG*len(ids); TAIL=1.5; TT=D+TAIL
 O.title_png(title,T+'title.png'); O.name_brand_png(T+'name.png'); O.neon_end_png(T+'neon.png'); O.hook_png(hook,T+'hook.png')
 card(['Посмотрите, какие идеальные концы',''],T+'konc.png')
 card(['ХОЧЕШЬ ТАК НАУЧИТЬСЯ? НАПИШИ МНЕ. ОНЛАЙН.','КАК ДЕЛАТЬ КЕРАТИН ТАК, ПРИ ЭТОМ БЫСТРО: ОНЛАЙН 1000 РУБ. (для опытных мастеров)'],T+'cta.png')
