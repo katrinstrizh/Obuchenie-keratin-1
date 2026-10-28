@@ -126,7 +126,7 @@ def build_reel(name, segs, kws, versions, only=None):
 
 if __name__ == '__main__':
     import importlib.util
-    spec = importlib.util.spec_from_file_location('reels', '/home/claude/work/reels_cfg.py'); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+    spec = importlib.util.spec_from_file_location('reels', os.environ.get('REELCFG', '/home/claude/work/reels_cfg.py')); m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
     want = sys.argv[1:]
     for name, (segs, kws, versions) in m.REELS.items():
         names = [w for w in want if w not in ('A', 'B', 'C')]
