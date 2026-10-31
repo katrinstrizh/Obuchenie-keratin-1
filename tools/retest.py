@@ -38,10 +38,10 @@ VAR = {'A': (1.03, 'eq=saturation=1.06:contrast=1.02'),
        'B': (1.035, 'eq=saturation=1.03:brightness=0.015'),
        'C': (1.03, 'eq=saturation=1.08:gamma=0.98,colorbalance=rs=0.02:bs=-0.02')}
 
-def title_png(new, old, z, path):
+def title_png(new, old, z, path, extra=0):
     font = ImageFont.truetype(O.F + 'ExtraBold.ttf', 50)
     pw, ph, lines = P.title_dims(new); opw, oph, _ = P.title_dims(old)
-    pw = max(pw, int(opw * z) + 30); ph = max(ph, int(oph * z) + 22)
+    pw = max(pw, int(opw * z) + 30 + extra); ph = max(ph, int(oph * z) + 22 + extra // 3)
     c = Image.new('RGBA', (W, ph + 48), (0, 0, 0, 0)); x0 = (W - pw) // 2
     sh = Image.new('RGBA', c.size, (0, 0, 0, 0)); ImageDraw.Draw(sh).rounded_rectangle([x0, 6, x0 + pw, 6 + ph], 30, fill=(0, 40, 35, 110))
     c = Image.alpha_composite(c, sh.filter(ImageFilter.GaussianBlur(10)))
@@ -66,8 +66,8 @@ for n in [int(x) for x in sys.argv[1:]] or sorted(R):
         dst = V + f'{n:02d}{v}_' + base[4:].replace('_h2.mp4', '.mp4').replace('.mp4', '_r2.mp4')
         if os.path.exists(dst): print('skip', dst); continue
         z, eq = VAR[v]
-        ty = int(960 - (960 - 120) * z) - 3
-        title_png(title, old_t, z, TMP + f't{n}{v}.png'); P.hook_png(hook, None, TMP + f'h{n}{v}.png')
+        ty = int(960 - (960 - 120) * z) - 3 - (10 if base.endswith('_h2.mp4') else 0)
+        title_png(title, old_t, z, TMP + f't{n}{v}.png', 90 if base.endswith('_h2.mp4') else 0); P.hook_png(hook, None, TMP + f'h{n}{v}.png')
         T = P.dur(src); D = T - 1.5
         fc = (f"[0:v]scale=iw*{z}:ih*{z},crop=1080:1920,{eq},noise=alls=4:allf=t[b];"
               f"[b][1:v]overlay=0:{ty}:enable='lt(t,{D:.2f})',"
