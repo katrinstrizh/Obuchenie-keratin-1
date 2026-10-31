@@ -1,0 +1,85 @@
+<!-- БЛОК 16. КОНТАКТЫ -->
+<style>
+  .contacts-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px; max-width: 800px; margin: 0 auto 24px;
+  }
+  .contact-item {
+    background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius-card); padding: 20px 16px;
+    border: 1px solid rgba(24,212,178,0.06); box-shadow: var(--shadow-card);
+    text-align: center; transition: all 0.3s;
+  }
+  .contact-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(24,212,178,0.12); }
+  .contact-item .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+  .contact-item .label { font-size: 13px; color: var(--color-light); font-weight: 500; margin-bottom: 2px; }
+  .contact-item .value { font-size: 16px; font-weight: 700; color: var(--color-dark); text-decoration: none; }
+  .contact-item .value a { color: var(--color-dark); text-decoration: none; transition: color 0.3s; }
+  .contact-item .value a:hover { color: #18d4b2; }
+  .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 600px; margin: 0 auto; }
+  .btn-max, .btn-vk {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 16px; font-weight: 800; padding: 14px 36px;
+    border-radius: var(--radius-btn); text-decoration: none;
+    transition: all 0.3s; min-height: 52px;
+    position: relative; overflow: hidden;
+  }
+  .btn-max {
+    background: var(--gradient-main); color: #fff;
+    box-shadow: 0 8px 30px rgba(24,212,178,0.35);
+  }
+  .btn-max:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(24,212,178,0.45); }
+  .btn-vk {
+    background: var(--gradient-vk); color: #fff;
+    box-shadow: 0 8px 30px rgba(76,117,163,0.35);
+  }
+  .btn-vk:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(76,117,163,0.45); }
+  .btn-max::after, .btn-vk::after {
+    content: ''; position: absolute; top: -50%; left: -60%; width: 200%; height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: rotate(25deg); transition: left 0.8s;
+  }
+  .btn-max:hover::after, .btn-vk:hover::after { left: 60%; }
+  @media (max-width: 768px) {
+    .contacts-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-item { padding: 16px 12px; }
+    .contact-item .value { font-size: 14px; }
+    .btn-max, .btn-vk { font-size: 14px; padding: 12px 28px; min-height: 48px; }
+  }
+  @media (max-width: 480px) {
+    .contacts-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .contact-item { padding: 12px 8px; border-radius: 16px; }
+    .contact-item .icon { font-size: 20px; }
+    .contact-item .label { font-size: 11px; }
+    .contact-item .value { font-size: 12px; }
+    .btn-max, .btn-vk { font-size: 13px; padding: 12px 20px; min-height: 44px; width: 100%; justify-content: center; }
+  }
+</style>
+
+<section class="section-light" id="contacts">
+  <div class="container">
+    <h2 class="section-title">📞 Свяжитесь <span class="gradient-text">с нами</span></h2>
+    <p class="section-sub">Кератиновое выпрямление в Нижнем Новгороде</p>
+    <div class="contacts-grid">
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <div class="label">Телефон</div>
+        <div class="value"><a href="tel:+79302830820">8-930-2-830-820</a></div>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <div class="label">Адрес</div>
+        <div class="value">Нижний Новгород,<br>ул. Родионова, 45</div>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🕒</span>
+        <div class="label">Режим работы</div>
+        <div class="value">Ежедневно<br>по записи</div>
+      </div>
+    </div>
+    <div class="contact-actions">
+      <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-max" target="_blank">📱 Написать в MAX</a>
+      <a href="https://vk.com/keratin.expert" class="btn-vk" target="_blank">Подписаться в ВК</a>
+    </div>
+  </div>
+</section>

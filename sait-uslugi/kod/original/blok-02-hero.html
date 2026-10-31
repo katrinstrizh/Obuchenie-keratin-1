@@ -1,0 +1,77 @@
+<!-- БЛОК 2. HERO -->
+<style>
+  .hero {
+    background: var(--color-bg); padding: 60px 20px 70px;
+    text-align: center; position: relative; overflow: hidden;
+    font-family: 'Montserrat', 'Arial', sans-serif;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(24,212,178,0.02) 0px, rgba(24,212,178,0.02) 1px, transparent 1px, transparent 20px),
+      radial-gradient(ellipse at 10% 20%, rgba(24,212,178,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(17,110,102,0.04) 0%, transparent 50%);
+    background-attachment: fixed; pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(32px, 4.5vw, 48px); font-weight: 800; color: var(--color-dark); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.3px; }
+  .hero .subtitle { font-size: clamp(16px, 1.2vw, 20px); font-weight: 500; color: var(--color-muted); max-width: 720px; margin: 0 auto 24px; line-height: 1.6; }
+  .hero .subtitle strong { color: var(--color-dark); font-weight: 700; }
+  .hero-services { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 14px; margin-bottom: 28px; }
+  .hero-services a {
+    background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+    padding: 8px 22px; border-radius: var(--radius-btn);
+    font-size: clamp(13px, 0.9vw, 15px); font-weight: 600; color: var(--color-dark);
+    text-decoration: none; border: 1px solid rgba(24,212,178,0.12); transition: all 0.3s;
+  }
+  .hero-services a:hover { background: var(--gradient-main); color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(24,212,178,0.25); }
+  .hero-features { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 28px; margin-bottom: 28px; font-size: clamp(14px, 1vw, 16px); font-weight: 500; color: var(--color-muted); }
+  .hero-features span { background: var(--glass-bg); backdrop-filter: var(--glass-blur); padding: 6px 18px; border-radius: 30px; border: 1px solid rgba(24,212,178,0.06); }
+  .hero-contacts { display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-bottom: 30px; font-size: clamp(13px, 0.9vw, 15px); }
+  .hero-contacts a { color: var(--color-muted); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+  .hero-contacts a:hover { color: #18d4b2; }
+  .hero-contacts .phone { font-size: clamp(17px, 1.2vw, 20px); font-weight: 700; color: var(--color-dark); }
+  @media (max-width: 768px) {
+    .hero { padding: 40px 16px 50px; }
+    .hero-services a { padding: 6px 16px; font-size: 12px; }
+    .hero-features { gap: 8px 16px; font-size: 13px; }
+    .hero-contacts { gap: 8px 16px; font-size: 12px; }
+    .hero-contacts .phone { font-size: 16px; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 30px 12px 40px; }
+    .hero h1 { font-size: 24px; }
+    .hero .subtitle { font-size: 14px; }
+    .hero-services a { font-size: 11px; padding: 4px 12px; }
+    .hero-features { font-size: 12px; gap: 4px 10px; }
+    .hero-contacts { font-size: 11px; gap: 4px 10px; }
+    .hero-contacts .phone { font-size: 14px; }
+  }
+</style>
+
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h1>Авторское восстановление волос<br><span class="gradient-text">в Нижнем Новгороде</span></h1>
+    <div class="subtitle">
+      <strong>Кератин · Ботокс · Реконструкция · WOWBOOST</strong><br>
+      Индивидуальный протокол под ваши волосы от <strong>Екатерины Стриж</strong>
+    </div>
+    <div class="hero-services">
+      <a href="#keratin">Кератиновое выпрямление</a>
+      <a href="#botox">Ботокс волос</a>
+      <a href="#wowboost">Прикорневой объём на кератине</a>
+      <a href="#reconstruction">Реконструкция SOS для блонда</a>
+    </div>
+    <div class="hero-features">
+      <span>⏱ кератин от 1,5 часов</span>
+      <span>👤 идеальные волосы</span>
+      <span>📍 Нижний Новгород</span>
+    </div>
+    <div class="hero-contacts">
+      <a href="tel:+79302830820" class="phone"><span class="phone-icon">📞</span> 8-930-2-830-820</a>
+      <span style="color:var(--color-light);">|</span>
+      <a href="#contacts">📍 Нижний Новгород, Родионова, 45</a>
+    </div>
+    <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-primary" target="_blank">Записаться на консультацию <span class="arrow">→</span></a>
+  </div>
+</section>

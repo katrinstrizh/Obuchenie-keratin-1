@@ -1,0 +1,129 @@
+<!-- БЛОК 7. КЕРАТИНОВОЕ ВЫПРЯМЛЕНИЕ (слайдер) -->
+<style>
+  .tariff-scroll {
+    display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 18px;
+    padding: 8px 4px 20px; max-width: 100%;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .tariff-scroll::-webkit-scrollbar { height: 4px; }
+  .tariff-scroll::-webkit-scrollbar-track { background: rgba(24,212,178,0.08); border-radius: 10px; }
+  .tariff-scroll::-webkit-scrollbar-thumb { background: var(--gradient-main); border-radius: 10px; }
+  .tariff-card {
+    flex: 0 0 280px;
+    background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius-card); padding: 24px 18px 20px;
+    border: 1px solid rgba(24,212,178,0.06); box-shadow: var(--shadow-card);
+    scroll-snap-align: start; display: flex; flex-direction: column;
+    transition: all 0.3s; text-align: left;
+  }
+  .tariff-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(24,212,178,0.15); }
+  .tariff-card .cat { font-size: 13px; font-weight: 700; color: #18d4b2; letter-spacing: 1px; text-transform: uppercase; }
+  .tariff-card h3 { font-size: clamp(16px, 1.1vw, 18px); font-weight: 800; color: var(--color-dark); margin: 6px 0 10px; line-height: 1.3; min-height: 44px; }
+  .tariff-card .price { font-size: 24px; font-weight: 800; color: var(--color-dark); margin: 8px 0 4px; }
+  .tariff-card .price small { font-size: 12px; font-weight: 500; color: var(--color-light); display: block; margin-top: 2px; }
+  .tariff-card .meta { font-size: 14px; color: var(--color-muted); margin-bottom: 10px; }
+  .tariff-card ul { list-style: none; padding: 0; margin: 10px 0 14px; flex-grow: 1; }
+  .tariff-card ul li {
+    font-size: 14px; color: var(--color-dark);
+    padding: 4px 0 4px 24px; position: relative;
+    border-bottom: 1px solid rgba(24,212,178,0.06);
+    line-height: 1.4; font-weight: 500;
+  }
+  .tariff-card ul li::before { content: "✦"; position: absolute; left: 0; color: #18d4b2; font-size: 14px; }
+  .tariff-card .btn-small {
+    display: block; background: var(--gradient-main); color: #fff;
+    text-align: center; padding: 12px; border-radius: var(--radius-btn);
+    font-weight: 700; font-size: 15px; text-decoration: none; margin-top: 6px;
+    transition: all 0.3s; min-height: 48px; line-height: 1.4;
+    position: relative; overflow: hidden;
+  }
+  .tariff-card .btn-small:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(24,212,178,0.3); }
+  .slider-note { text-align: center; font-size: 14px; color: var(--color-light); margin-bottom: 16px; font-style: italic; }
+  .slider-note span { background: rgba(255,255,255,0.6); backdrop-filter: var(--glass-blur); padding: 4px 18px; border-radius: 30px; display: inline-block; }
+  @media (max-width: 768px) {
+    .tariff-card { flex: 0 0 260px; padding: 20px 14px; }
+    .tariff-card h3 { font-size: 16px; min-height: 40px; }
+    .tariff-card .price { font-size: 22px; }
+    .tariff-card ul li { font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    .tariff-card { flex: 0 0 240px; padding: 16px 12px; border-radius: 16px; }
+    .tariff-card .cat { font-size: 11px; }
+    .tariff-card h3 { font-size: 14px; min-height: 36px; margin: 4px 0 6px; }
+    .tariff-card .price { font-size: 20px; }
+    .tariff-card .meta { font-size: 12px; }
+    .tariff-card ul { margin: 6px 0 10px; }
+    .tariff-card ul li { font-size: 12px; padding: 3px 0 3px 20px; }
+    .tariff-card .btn-small { font-size: 13px; padding: 10px; min-height: 42px; }
+    .slider-note { font-size: 12px; }
+  }
+</style>
+
+<section class="section-light" id="keratin">
+  <div class="container">
+    <h2 class="section-title">Кератиновое <span class="gradient-text">выпрямление волос</span></h2>
+    <p class="section-sub">Стоимость зависит от длины, густоты, плотности и завитка. Прямые волосы дешевле — сильно вьющиеся дороже. Этот результат того стоит. Вы получите длительный, сильный, классный эффект.</p>
+    <div class="slider-note"><span>← Листайте вправо →</span></div>
+    <div class="tariff-scroll">
+
+      <div class="tariff-card">
+        <div class="cat">Кератин</div>
+        <h3>Тонкие / негустые волосы</h3>
+        <div class="price">5 000–8 000 ₽</div>
+        <div class="meta">⏱ 1,5–2 часа · 👤 индивидуально</div>
+        <ul>
+          <li>Лёгкая формула без утяжеления</li>
+          <li>Сохраняем природный объём волос</li>
+          <li>Мягкий температурный режим</li>
+          <li>Эффект 5–8 месяцев. В зависимости от состава</li>
+        </ul>
+        <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-small" target="_blank">Записаться</a>
+      </div>
+
+      <div class="tariff-card">
+        <div class="cat">Кератин</div>
+        <h3>Густые / вьющиеся / плотные</h3>
+        <div class="price">7 000–14 000 ₽</div>
+        <div class="meta">⏱ 2,5–3,5 часа · 👤 индивидуально</div>
+        <ul>
+          <li>Усиленные формулы для сложных волос — тщательная проработка</li>
+          <li>Проработка корневой зоны</li>
+          <li>Убирает пушистость и «одуванчик»</li>
+          <li>Эффект 5–8 месяцев</li>
+        </ul>
+        <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-small" target="_blank">Записаться</a>
+      </div>
+
+      <div class="tariff-card">
+        <div class="cat">Сильный кератин</div>
+        <h3>Плотные / густые / вьющиеся / армянские / азиатские</h3>
+        <div class="price">9 000–20 000 ₽</div>
+        <div class="meta">⏱ 3–4,5 часа · 👤 индивидуально</div>
+        <ul>
+          <li>Супер сильные составы. Сочетание нанопластики и кератина для супер сильного и длительного эффекта</li>
+          <li>Полное разглаживание завитка</li>
+          <li>Авторский эффект от студии Keratin.Expert</li>
+          <li>Эффект 6–8 месяцев</li>
+        </ul>
+        <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-small" target="_blank">Записаться</a>
+      </div>
+
+      <div class="tariff-card">
+        <div class="cat">Кератин на блонд</div>
+        <h3>Осветлённые волосы</h3>
+        <div class="price">По цене кератина</div>
+        <div class="meta">⏱ 1,5–3 часа · 👤 индивидуально</div>
+        <ul>
+          <li>Мягкий питательный состав</li>
+          <li>Идеальный температурный режим для супер-качества ваших волос</li>
+          <li>Активатор S+S для восстановления ваших волос</li>
+          <li>Рекомендации по домашнему уходу и дополнительным процедурам</li>
+          <li>Эффект 4–7 месяцев</li>
+        </ul>
+        <a href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" class="btn-small" target="_blank">Записаться</a>
+      </div>
+
+    </div>
+    <p class="section-sub" style="margin-top:20px;margin-bottom:0;">Кератиновое выпрямление волос в Нижнем Новгороде</p>
+  </div>
+</section>
