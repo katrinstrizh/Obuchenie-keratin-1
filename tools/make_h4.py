@@ -55,6 +55,27 @@ VER = {'A': (1.18, 0.50, 0.42, 'eq=saturation=1.07:contrast=1.03'),
        'B': (1.20, 0.47, 0.41, 'eq=saturation=1.03:brightness=0.012,colorbalance=bs=0.025:gs=0.01:rs=-0.01'),
        'C': (1.15, 0.53, 0.43, 'eq=saturation=1.09:gamma=0.98,colorbalance=rs=0.025:bs=-0.02')}
 
+# кадрирование по роликам (по пояс): zoom, центр x, центр y — по раскадровке исходников
+FR = {9: (1.45, .33, .34), 10: (1.45, .38, .34), 11: (1.45, .42, .35), 12: (1.45, .40, .34), 13: (1.45, .45, .34),
+      14: (1.45, .48, .34), 15: (1.45, .50, .34), 16: (1.15, .50, .50), 17: (1.35, .42, .34), 18: (1.22, .50, .40),
+      19: (1.15, .50, .45), 20: (1.15, .50, .45), 21: (1.35, .42, .33), 22: (1.3, .45, .36), 23: (1.2, .45, .40),
+      24: (1.15, .50, .45), 25: (1.2, .50, .40), 26: (1.35, .45, .35)}
+VK = {'A': (1.0, 0.0), 'B': (1.07, -0.025), 'C': (0.93, 0.025)}
+
+_cxc = {}
+def seg_cx(m, i):
+    """где Катя по горизонтали в этой фразе: центр тёмного платья в полосе 22–42% высоты"""
+    import cv2
+    p = segs(m)[i][0]
+    if p in _cxc: return _cxc[p]
+    cap = cv2.VideoCapture(p); N = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)); xs = []
+    for k in np.linspace(0, max(N - 1, 0), 5).astype(int):
+        cap.set(cv2.CAP_PROP_POS_FRAMES, int(k)); ok, fr = cap.read()
+        if not ok: continue
+        g = cv2.cvtColor(cv2.resize(fr, (270, 480)), cv2.COLOR_BGR2HSV)[..., 2][int(480 * .22):int(480 * .42)] < 45
+        if g.sum() > 50: xs.append(np.nonzero(g)[1].mean() / 270)
+    _cxc[p] = float(np.median(xs)) if xs else None; return _cxc[p]
+
 def dur(p): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p]).decode())
 _seg = {}
 def segs(n):
@@ -206,6 +227,7 @@ def build(n, v):
         sz = num_png(num, cap, tmp + f'n{i}.png'); ov.append((tmp + f'n{i}.png', t0, t1, W - sz[0] - 30, 860, 'num')); taken.append((t0, t1))
     # камера: отъезд 0–2,5 с, потом наезды по фразам и «пробивка» на каждой мысли/цифре
     Z0, CX, CY, EQ = VER[v]
+    if n in FR: zf, cx0, CY = FR[n]; Z0 = round(zf * VK[v][0], 3); CX = cx0 + VK[v][1]
     kf = [(0, Z0 * 1.12), (0.6, Z0 * 1.09), (1.4, Z0 * 1.03), (2.5, Z0)]
     for j, bt in enumerate(bounds):
         if bt <= 2.5: continue
@@ -221,13 +243,20 @@ def build(n, v):
         if b - a < 1e-3: continue
         e = f"if(between(it,{a:.3f},{b:.3f}),{za:.4f}+({zb:.4f}-{za:.4f})*(it-{a:.3f})/{b - a:.3f},{e})"
     z = e.replace('it', '(in/30)')
+    cxs = []
+    for j, (m, i, rng) in enumerate(pieces):
+        c = seg_cx(m, i) if n in FR else None
+        cxs.append(min(0.7, max(0.3, (c if c is not None else CX) + VK[v][1])) if n in FR else CX)
+    xe = f"{cxs[-1]:.3f}"
+    for j in reversed(range(len(pieces) - 1)):
+        xe = f"if(lt(in/30,{bounds[j + 1]:.3f}),{cxs[j]:.3f},{xe})"
     O.title_png(title, tmp + 'title.png'); P.hook_png(hook, None, tmp + 'hook.png')
     if not os.path.exists(TMP + 'nameb.png'): O.name_brand_png(TMP + 'nameb.png'); O.neon_end_png(TMP + 'neon.png'); sfx(TMP + 'whoosh.wav', 'whoosh'); sfx(TMP + 'pop.wav', 'pop')
     ins = ['-i', base]
     for p in [tmp + 'title.png', tmp + 'hook.png', TMP + 'nameb.png', TMP + 'neon.png']: ins += ['-loop', '1', '-t', f'{T:.2f}', '-i', p]
     for o in ov: ins += ['-loop', '1', '-t', f'{T:.2f}', '-i', o[0]]
     ins += ['-i', TMP + 'whoosh.wav'] + sum([['-i', TMP + 'pop.wav'] for _ in ov], [])
-    fc = [f"[0:v]tpad=stop_mode=add:stop_duration={TAIL}:color=black,zoompan=z='{z}':x='max(0,min(iw-iw/zoom,{CX}*iw-iw/zoom/2))':y='max(0,min(ih-ih/zoom,{CY}*ih-ih/zoom/2))':d=1:s=1080x1920:fps=30,{EQ},subtitles={tmp}w.ass[b0]",
+    fc = [f"[0:v]tpad=stop_mode=add:stop_duration={TAIL}:color=black,zoompan=z='{z}':x='max(0,min(iw-iw/zoom,({xe})*iw-iw/zoom/2))':y='max(0,min(ih-ih/zoom,{CY}*ih-ih/zoom/2))':d=1:s=1080x1920:fps=30,{EQ},subtitles={tmp}w.ass[b0]",
           "[1:v]format=rgba,fade=in:st=0.1:d=0.3:alpha=1[ti]",
           "[3:v]format=rgba,fade=in:st=4.0:d=0.3:alpha=1,fade=out:st=6.8:d=0.3:alpha=1[nm]",
           f"[4:v]format=rgba,fade=in:st={D:.2f}:d=0.25:alpha=1[en]",
