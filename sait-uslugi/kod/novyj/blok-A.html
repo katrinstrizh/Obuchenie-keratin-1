@@ -1,0 +1,311 @@
+<!-- УСЛУГИ /keratin-botox · БЛОК A: стили сайта, шапка, первый экран, проблемы, квиз -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+.ke{--g:linear-gradient(0.145turn,#18d4b2 0%,#116e66 29%,#148c82 50%,#15a69a 68%,#1bcfc0 85%,#21e8d7 100%);--d:#0A2F2A;--m:#2D4A42;--l:#6f8f85;--bg:#F4FBF9;--glass:rgba(255,255,255,.78);--line:rgba(24,212,178,.18);--sh:0 6px 30px rgba(17,110,102,.08);
+  font-family:'Montserrat',Arial,sans-serif;color:var(--d);background:var(--bg);line-height:1.55}
+.ke *{box-sizing:border-box;margin:0;padding:0}
+.ke a{color:inherit}
+.ke .w{max-width:1160px;margin:0 auto;padding:0 18px}
+.ke .sec{padding:72px 0;position:relative;overflow:hidden}
+.ke .sec.alt{background:linear-gradient(180deg,#fff 0%,#F4FBF9 100%)}
+.ke .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.35;pointer-events:none;z-index:0}
+.ke .b1{width:420px;height:420px;background:#18d4b2;top:-160px;right:-120px}
+.ke .b2{width:360px;height:360px;background:#21e8d7;bottom:-180px;left:-140px}
+.ke .w{position:relative;z-index:1}
+.ke .gt{background:var(--g);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ke .kicker{display:inline-block;background:var(--g);color:#fff;font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:50px}
+.ke h2{font-size:clamp(28px,3.6vw,44px);font-weight:900;line-height:1.15;margin:14px 0 12px;letter-spacing:-.5px}
+.ke .lead{font-size:clamp(15px,1.15vw,18px);color:var(--m);font-weight:500;max-width:760px}
+.ke .glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh)}
+.ke .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--g);color:#fff!important;text-decoration:none;font-weight:800;font-size:16px;padding:16px 30px;border-radius:60px;box-shadow:0 10px 30px rgba(24,212,178,.35);transition:transform .25s,box-shadow .25s;border:0;cursor:pointer;font-family:inherit}
+.ke .btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(24,212,178,.45)}
+.ke .btn.ghost{background:#fff;color:var(--d)!important;border:2px solid rgba(24,212,178,.45);box-shadow:none}
+.ke .btn.sm{font-size:14px;padding:12px 20px}
+/* плашки-факты */
+.ke .pills{display:flex;flex-wrap:wrap;gap:10px}
+.ke .pill{background:#fff;border:1px solid var(--line);border-radius:50px;padding:9px 16px;font-size:14px;font-weight:600;box-shadow:0 2px 12px rgba(17,110,102,.05)}
+/* сетка плиток */
+.ke .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px}
+.ke .tile{padding:22px 20px}
+.ke .tile .e{font-size:30px;display:block;margin-bottom:8px}
+.ke .tile b{display:block;font-size:17px;font-weight:800;margin-bottom:6px}
+.ke .tile p{font-size:14px;color:var(--m);font-weight:500}
+.ke .tile p b{display:inline;font-size:inherit;margin:0;font-weight:800;color:var(--d)}
+.ke .tiles.five{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.ke .tile .hl{display:inline-block;margin-top:10px;background:rgba(24,212,178,.12);color:#0f6b62;font-weight:800;font-size:13px;padding:5px 12px;border-radius:30px;text-decoration:none}
+/* СЛАЙДЕР */
+.ke .sl{position:relative;margin-top:26px}
+.ke .sl-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.ke .swipe{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#0f6b62;background:rgba(24,212,178,.12);padding:7px 14px;border-radius:30px}
+.ke .swipe i{font-style:normal;display:inline-block;animation:keNudge 1.4s ease-in-out infinite}
+@keyframes keNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+.ke .arr{display:flex;gap:8px}
+.ke .arr button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:18px;font-weight:800;color:#116e66;cursor:pointer;box-shadow:var(--sh);transition:.2s}
+.ke .arr button:hover{background:#116e66;color:#fff}
+.ke .track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px 4px 18px;scrollbar-width:thin;scrollbar-color:#18d4b2 rgba(24,212,178,.12)}
+.ke .track::-webkit-scrollbar{height:6px}.ke .track::-webkit-scrollbar-thumb{background:var(--g);border-radius:10px}.ke .track::-webkit-scrollbar-track{background:rgba(24,212,178,.1);border-radius:10px}
+.ke .sl::after{content:'';position:absolute;right:0;top:60px;bottom:24px;width:60px;background:linear-gradient(90deg,rgba(244,251,249,0),rgba(244,251,249,.95));pointer-events:none}
+.ke .dots{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.ke .dots span{width:8px;height:8px;border-radius:50%;background:rgba(24,212,178,.25);transition:.25s}
+.ke .dots span.on{width:22px;border-radius:6px;background:#18d4b2}
+.ke .card{flex:0 0 330px;scroll-snap-align:start;padding:24px 22px 22px;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh)}
+.ke .card.top{border:2px solid #18d4b2;box-shadow:0 10px 40px rgba(24,212,178,.18)}
+.ke .cat{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#18d4b2}
+.ke .badge{display:inline-block;background:var(--g);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:30px;margin-left:6px;vertical-align:middle;letter-spacing:.5px}
+.ke .card h3{font-size:20px;font-weight:800;line-height:1.25;margin:6px 0 8px}
+.ke .price{font-size:26px;font-weight:900}
+.ke .time{font-size:13px;font-weight:600;color:var(--m);margin:4px 0 12px}
+.ke .card ul{list-style:none;flex-grow:1;margin-bottom:14px}
+.ke .card li{font-size:14px;font-weight:500;padding:7px 0 7px 30px;position:relative;border-bottom:1px solid rgba(24,212,178,.1)}
+.ke .card li:last-child{border-bottom:0}
+.ke .card li i{position:absolute;left:0;top:6px;font-style:normal;font-size:16px}
+.ke .card li b{font-weight:800}
+.ke .bonus{background:linear-gradient(135deg,rgba(24,212,178,.14),rgba(33,232,215,.06));border:1px dashed #18d4b2;border-radius:16px;padding:12px 14px;font-size:14px;font-weight:600;margin-bottom:14px}
+.ke .bonus b{font-weight:900;color:#0f6b62}
+.ke .uniq{display:inline-block;background:#0A2F2A;color:#21e8d7;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:6px 12px;border-radius:30px;margin-bottom:12px}
+.ke .after{margin-top:10px;font-size:14px;font-weight:600;color:var(--m);text-align:center}
+.ke .after a{color:#0f6b62;font-weight:800}
+.ke .small{font-size:13px;color:var(--l);font-weight:500}
+/* тост */
+.ke-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:#0A2F2A;color:#fff;font-family:Montserrat,Arial,sans-serif;font-size:14px;font-weight:600;padding:14px 20px;border-radius:16px;z-index:99999;transition:transform .35s;max-width:92vw;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.ke-toast.show{transform:translateX(-50%) translateY(0)}
+/* ШАПКА */
+.ke-h{position:sticky;top:0;z-index:999;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(24,212,178,.12);font-family:'Montserrat',Arial,sans-serif}
+.ke-h .in{max-width:1160px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ke-h .logo{font-size:26px;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:var(--g,linear-gradient(0.145turn,#18d4b2 0%,#116e66 29%,#148c82 50%,#15a69a 68%,#1bcfc0 85%,#21e8d7 100%));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+.ke-h .addr{font-size:13px;font-weight:600;color:#2D4A42;margin-top:2px}
+.ke-h nav{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center}
+.ke-h nav a{font-size:14px;font-weight:700;color:#0A2F2A;text-decoration:none}
+.ke-h nav a:hover{color:#18d4b2}
+.ke-h .x{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.ke-h .ph{font-size:17px;font-weight:800;color:#0A2F2A;text-decoration:none;white-space:nowrap}
+.ke-h .xl{display:flex;gap:8px}
+.ke-h .xl a{font-size:12px;font-weight:800;text-decoration:none;padding:6px 12px;border-radius:30px;border:1.5px solid rgba(24,212,178,.5);color:#116e66;white-space:nowrap}
+.ke-h .xl a.f{background:linear-gradient(0.145turn,#18d4b2 0%,#116e66 29%,#148c82 50%,#15a69a 68%,#1bcfc0 85%,#21e8d7 100%);color:#fff;border-color:transparent}
+.ke-h details{display:none}
+@media(max-width:980px){.ke-h nav{display:none}.ke-h details{display:block;position:relative}
+ .ke-h summary{list-style:none;cursor:pointer;width:42px;height:42px;border-radius:12px;border:1px solid rgba(24,212,178,.4);display:flex;align-items:center;justify-content:center;font-size:20px}
+ .ke-h summary::-webkit-details-marker{display:none}
+ .ke-h .dd{position:absolute;right:0;top:50px;background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.15);padding:12px;display:flex;flex-direction:column;min-width:230px}
+ .ke-h .dd a{padding:10px 12px;font-weight:700;font-size:15px;color:#0A2F2A;text-decoration:none;border-radius:10px}
+ .ke-h .dd a:hover{background:#F4FBF9}}
+@media(max-width:640px){.ke-h .logo{font-size:20px}.ke-h .addr{font-size:11px}.ke-h .xl{display:none}.ke-h .ph{font-size:14px}.ke-h .in{padding:10px 14px}}
+/* HERO */
+.ke .hero{padding:56px 0 64px;background:radial-gradient(ellipse at 85% 10%,rgba(24,212,178,.16),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(33,232,215,.12),transparent 55%),#F4FBF9}
+.ke .hero .grid{display:grid;grid-template-columns:1.25fr .85fr;gap:40px;align-items:center}
+.ke h1{font-size:clamp(30px,4.4vw,54px);font-weight:900;line-height:1.1;letter-spacing:-.8px}
+.ke .hero .sub{font-size:clamp(17px,1.4vw,21px);font-weight:600;margin:18px 0 6px;color:var(--d)}
+.ke .hero .who{font-size:16px;font-weight:600;color:var(--m);margin-bottom:22px}
+.ke .hero .who b{font-weight:800}
+.ke .hero .pills{margin-bottom:26px}
+.ke .hero .btns{display:flex;flex-wrap:wrap;gap:12px}
+.ke .photo{position:relative}
+.ke .photo img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:30px;box-shadow:0 20px 60px rgba(17,110,102,.25);display:block}
+.ke .photo .tag{position:absolute;left:-16px;bottom:26px;padding:14px 18px;max-width:250px}
+.ke .photo .tag b{display:block;font-size:15px;font-weight:800}
+.ke .photo .tag span{font-size:13px;color:var(--m);font-weight:600}
+.ke .photo .tag2{position:absolute;right:-10px;top:22px;padding:10px 14px;font-size:13px;font-weight:800}
+@media(max-width:860px){.ke .hero .grid{grid-template-columns:1fr}.ke .hero .photo{max-width:300px;margin:0 auto}.ke .photo .tag{left:10px}.ke .photo .tag2{right:10px}}
+/* КВИЗ */
+.ke .qz{max-width:820px;margin:28px auto 0;padding:28px 26px}
+.ke .qz .step{font-size:13px;font-weight:800;color:#18d4b2;letter-spacing:1px;text-transform:uppercase}
+.ke .qz .bar{height:6px;background:rgba(24,212,178,.15);border-radius:10px;margin:10px 0 18px;overflow:hidden}
+.ke .qz .bar div{height:100%;background:var(--g);border-radius:10px;transition:width .3s}
+.ke .qz h3{font-size:22px;font-weight:800;margin-bottom:16px}
+.ke .qz .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ke .qz .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px 16px;cursor:pointer;font-family:inherit;transition:.2s}
+.ke .qz .opt:hover{border-color:#18d4b2;transform:translateY(-2px);box-shadow:var(--sh)}
+.ke .qz .opt .e{font-size:24px;line-height:1}
+.ke .qz .opt b{display:block;font-size:15px;font-weight:800;color:var(--d)}
+.ke .qz .opt small{display:block;font-size:13px;color:var(--l);font-weight:500;margin-top:2px}
+.ke .qz .back{margin-top:16px;background:none;border:0;font-family:inherit;font-weight:700;color:var(--l);cursor:pointer;font-size:14px}
+.ke .qz .res .rn{font-size:26px;font-weight:900;margin:6px 0}
+.ke .qz .res .rp{font-size:30px;font-weight:900}
+.ke .qz .res .rt{font-size:14px;font-weight:600;color:var(--m);margin-bottom:12px}
+.ke .qz .res p{font-size:15px;font-weight:500;color:var(--m);margin-bottom:10px}
+.ke .qz .res .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+@media(max-width:640px){.ke .qz .opts{grid-template-columns:1fr}.ke .qz{padding:22px 16px}.ke .sec{padding:52px 0}.ke .card{flex-basis:84%}.ke .arr{display:none}}
+
+.ke .cons{padding:34px 30px;border-radius:30px;background:linear-gradient(135deg,#0A2F2A 0%,#116e66 55%,#15a69a 100%);color:#fff;position:relative;overflow:hidden}
+.ke .cons:before{content:'';position:absolute;width:380px;height:380px;border-radius:50%;background:#21e8d7;filter:blur(90px);opacity:.25;right:-120px;top:-140px}
+.ke .cons h2{color:#fff;margin-top:12px}
+.ke .cons .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+.ke .cons .st{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:18px 16px;backdrop-filter:blur(6px)}
+.ke .cons .st span{font-size:28px;display:block;margin-bottom:6px}
+.ke .cons .st b{font-size:16px;font-weight:800;display:block;margin-bottom:4px}
+.ke .cons .st p{font-size:14px;opacity:.9;font-weight:500}
+.ke .cons .free{display:inline-flex;align-items:center;gap:8px;background:#21e8d7;color:#0A2F2A;font-weight:900;font-size:15px;padding:10px 18px;border-radius:40px;margin-bottom:18px}
+.ke .cons .btn.wh{background:#fff;color:#0A2F2A!important;box-shadow:none}
+.ke .cons .btn.vk{background:linear-gradient(135deg,#4C75A3,#2B4B7E)}
+.ke .book{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}
+.ke .book .b1x{padding:26px 24px}
+.ke .book .b2x{padding:22px 22px;background:rgba(255,255,255,.6)}
+.ke .ct{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;margin-top:26px}
+.ke .ct .c{padding:24px 22px}
+.ke .ct .c.addr{grid-row:span 2;background:linear-gradient(160deg,rgba(24,212,178,.16),rgba(255,255,255,.85))}
+.ke .ct .c .e{font-size:34px}
+.ke .ct .c .t{font-size:13px;font-weight:700;color:var(--l);text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px}
+.ke .ct .c .v{font-size:20px;font-weight:900;text-decoration:none;color:var(--d)}
+.ke .ct .c.ph{text-align:center}
+.ke .ct .c.ms .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ke .faq{max-width:860px;margin:24px auto 0}
+.ke .faq details{background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:10px;box-shadow:0 2px 14px rgba(17,110,102,.05)}
+.ke .faq summary{list-style:none;cursor:pointer;padding:18px 54px 18px 20px;font-weight:800;font-size:16px;position:relative}
+.ke .faq summary::-webkit-details-marker{display:none}
+.ke .faq summary:after{content:'+';position:absolute;right:20px;top:14px;font-size:24px;color:#18d4b2;font-weight:800}
+.ke .faq details[open] summary:after{content:'–'}
+.ke .faq .a{padding:0 20px 18px;font-size:15px;color:var(--m);font-weight:500}
+.ke .certs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.ke .certs a{width:180px;border-radius:18px;overflow:hidden;box-shadow:var(--sh);display:block;transition:transform .25s}
+.ke .certs a:hover{transform:translateY(-4px)}
+.ke .certs img{width:100%;aspect-ratio:1/1.35;object-fit:cover;display:block}
+.ke .kw{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+.ke .kw span{font-size:13px;font-weight:600;color:var(--m);background:#fff;border:1px solid var(--line);border-radius:30px;padding:6px 12px}
+.ke-f{background:#0A2F2A;color:rgba(255,255,255,.75);font-family:'Montserrat',Arial,sans-serif;padding:40px 18px 30px}
+.ke-f .in{max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+.ke-f .lg{font-size:22px;font-weight:800;background:linear-gradient(0.145turn,#18d4b2 0%,#21e8d7 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ke-f a{color:rgba(255,255,255,.85);text-decoration:none;font-weight:600;font-size:14px;display:block;margin:6px 0}
+.ke-f a:hover{color:#21e8d7}
+.ke-f .cp{max-width:1160px;margin:22px auto 0;font-size:12px;opacity:.6}
+@media(max-width:860px){.ke .cons .steps{grid-template-columns:1fr}.ke .book{grid-template-columns:1fr}.ke .ct{grid-template-columns:1fr}.ke .ct .c.addr{grid-row:auto}.ke .cons{padding:26px 18px}}
+
+/* Форма Tilda «Оставьте заявку» (rec5363520801) — в фирменном стиле */
+#rec5363520801{background:linear-gradient(135deg,#0A2F2A 0%,#116e66 55%,#15a69a 100%)!important;font-family:'Montserrat',Arial,sans-serif!important}
+#rec5363520801 .t-title,#rec5363520801 .t-section__title,#rec5363520801 h2{color:#fff!important;font-family:'Montserrat',Arial,sans-serif!important;font-weight:900!important}
+#rec5363520801 .t-descr,#rec5363520801 .t-section__descr,#rec5363520801 .t-input-title,#rec5363520801 .t-radio__control,#rec5363520801 .t-checkbox__control,#rec5363520801 .t-input-subtitle,#rec5363520801 .t-form__bottom-text{color:rgba(255,255,255,.9)!important;font-family:'Montserrat',Arial,sans-serif!important}
+#rec5363520801 .t-input,#rec5363520801 textarea.t-input{border-radius:14px!important;border:1px solid rgba(255,255,255,.35)!important;background:rgba(255,255,255,.95)!important;font-family:'Montserrat',Arial,sans-serif!important}
+#rec5363520801 .t-submit{background:#21e8d7!important;color:#0A2F2A!important;border-radius:60px!important;font-weight:900!important;font-family:'Montserrat',Arial,sans-serif!important;box-shadow:0 10px 30px rgba(33,232,215,.35)!important}
+#rec5363520801 a{color:#21e8d7!important}
+</style>
+
+<header class="ke-h">
+ <div class="in">
+  <div><a class="logo" href="/keratin-botox">KERATIN.EXPERT</a><div class="addr">📍 Нижний Новгород, Родионова 45</div></div>
+  <nav>
+   <a href="#keratin">Кератин</a><a href="#nano">Нанопластика</a><a href="#vosstanovlenie">Восстановление</a><a href="#wowboost">Объём</a><a href="#otzyvy">Отзывы</a><a href="#kontakty">Контакты</a>
+  </nav>
+  <div class="x">
+   <a class="ph" href="tel:+79302830820">📞 8-930-2-830-820</a>
+   <div class="xl"><a href="/obuchenie-keratin-botox">🎓 Обучение</a><a class="f" href="/">🛒 Купить составы</a></div>
+  </div>
+  <details><summary aria-label="Меню">☰</summary><div class="dd">
+   <a href="#keratin">💫 Кератин</a><a href="#nano">🌿 Нанопластика</a><a href="#vosstanovlenie">🛡 Восстановление</a><a href="#wowboost">🎈 Объём WOWBOOST</a><a href="#otzyvy">⭐ Отзывы</a><a href="#kontakty">📍 Контакты</a><a href="/obuchenie-keratin-botox">🎓 Обучение</a><a href="/">🛒 Купить составы</a>
+  </div></details>
+ </div>
+</header>
+
+<div class="ke">
+ <section class="hero" id="top">
+  <div class="w grid">
+   <div>
+    <h1>Кератин, ботокс и реконструкция волос <span class="gt">в Нижнем Новгороде</span></h1>
+    <div class="sub">✨ Гладкие волосы надолго — и с каждой процедурой они становятся только лучше</div>
+    <div class="who">Студия технолога <b>Кати Стриж</b> · обучаю с 2013 года</div>
+    <div class="pills">
+     <span class="pill">💰 от 5 000 ₽</span>
+     <span class="pill">💬 консультация бесплатно</span>
+     <span class="pill">🌡 самый бережный подбор температуры и состава</span>
+     <span class="pill">📍 Нижний Новгород, Родионова 45</span>
+    </div>
+    <div class="btns">
+     <a class="btn" href="#quiz">🎯 Подобрать процедуру за 1 минуту</a>
+     <a class="btn ghost js-max" data-s="Консультация" href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" target="_blank" rel="noopener">💬 Записаться в Max</a>
+    </div>
+   </div>
+   <div class="photo">
+    <img src="https://static.tildacdn.com/tild6564-6232-4030-a534-313436383061/ff39a2931b17255c12d4.jpg" alt="Катя Стриж — технолог по кератину, ботоксу и реконструкции волос, Нижний Новгород">
+    <div class="tag glass"><b>Катя Стриж</b><span>технолог Jkeratin, автор реконструктора Hair.Repair</span></div>
+    <div class="tag2 glass">⚡ кератин от 1,5 часов</div>
+   </div>
+  </div>
+ </section>
+
+ <section class="sec alt" id="problemy">
+  <div class="blob b1"></div>
+  <div class="w">
+   <span class="kicker">Узнаёте свои волосы?</span>
+   <h2>У каждой проблемы — <span class="gt">своё решение</span></h2>
+   <p class="lead">Не обязательно делать «кератин всем». Подберём то, что нужно именно вашим волосам.</p>
+   <div class="tiles">
+    <div class="tile glass"><span class="e">🌪️</span><b>Пушатся и вьются</b><p>Любая влажность — и причёска превращается в одуванчик.</p><a class="hl" href="#keratin">Кератин · нанопластика →</a></div>
+    <div class="tile glass"><span class="e">🌾</span><b>Сухие, без блеска</b><p>Хочется гладкости и блеска, но без прямых «как палка» волос.</p><a class="hl" href="#vosstanovlenie">Ботокс →</a></div>
+    <div class="tile glass"><span class="e">🤍</span><b>Ломкий блонд</b><p>После осветления волосы рвутся и путаются, концы «сыпятся».</p><a class="hl" href="#vosstanovlenie">Реконструкция Hair.Repair + ботокс →</a></div>
+    <div class="tile glass"><span class="e">🎈</span><b>Нет объёма у корней</b><p>Волосы прилипают к голове, укладка не держится.</p><a class="hl" href="#wowboost">Отступ от корней при кератине · прикорневой объём WOWBOOST →</a></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="sec" id="quiz">
+  <div class="blob b2"></div>
+  <div class="w" style="text-align:center">
+   <span class="kicker">Подбор за 1 минуту</span>
+   <h2>Какая процедура <span class="gt">подойдёт вашим волосам?</span></h2>
+   <p class="lead" style="margin:0 auto">5 простых вопросов — и вы увидите процедуру, время и примерную стоимость.</p>
+   <div class="qz glass" id="keQuiz" style="text-align:left"></div>
+  </div>
+ </section>
+ <div class="ke-toast" id="keToast"></div>
+</div>
+
+<script>
+(function(){
+ var MAX='https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8';
+ /* Кнопка Max: копируем название услуги, чтобы клиентка вставила его в сообщение */
+ function toast(t){var el=document.getElementById('keToast');if(!el)return;el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove('show')},4200);}
+ window.keToast=toast;
+ document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('.js-max');if(!a)return;
+  var s=a.getAttribute('data-s')||'';var txt='Здравствуйте! Хочу записаться: '+s;
+  try{if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast('📋 Скопировали «'+s+'» — вставьте в сообщение в Max')}).catch(function(){})}}catch(err){}
+ });
+ /* Слайдеры: стрелки + точки */
+ function initSliders(){
+  document.querySelectorAll('.ke .sl').forEach(function(sl){
+   if(sl._ok)return;sl._ok=1;
+   var tr=sl.querySelector('.track');if(!tr)return;
+   var cards=tr.children,dots=sl.querySelector('.dots');
+   if(dots){for(var i=0;i<cards.length;i++){dots.appendChild(document.createElement('span'))}}
+   function step(){return cards[0]?cards[0].getBoundingClientRect().width+18:300}
+   var p=sl.querySelector('.prev'),n=sl.querySelector('.next');
+   if(p)p.onclick=function(){tr.scrollBy({left:-step(),behavior:'smooth'})};
+   if(n)n.onclick=function(){tr.scrollBy({left:step(),behavior:'smooth'})};
+   function upd(){if(!dots)return;var k=Math.round(tr.scrollLeft/step());if(tr.scrollLeft+tr.clientWidth>=tr.scrollWidth-4)k=cards.length-1;[].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===k)})}
+   tr.addEventListener('scroll',upd,{passive:true});upd();
+  });
+ }
+ window.keInitSliders=initSliders;
+ document.addEventListener('DOMContentLoaded',initSliders);setTimeout(initSliders,800);setTimeout(initSliders,2500);
+
+ /* КВИЗ */
+ var Q=[
+  {k:'goal',t:'Что вы хотите получить?',o:[['straight','💫','Прямые гладкие волосы','чтобы не пушились и не вились'],['smooth','✨','Гладкость и блеск, но с объёмом','без эффекта «прямых как палка»'],['repair','🤍','Восстановить ломкие волосы','после осветления, химии, утюжка'],['volume','🎈','Объём у корней',''],['help','🤔','Не знаю — хочу совет мастера','']]},
+  {k:'dens',t:'Какие у вас волосы по густоте и толщине?',o:[['thin','🪶','Тонкие или негустые','хвост тонкий, волосы мягкие'],['mid','💁‍♀️','Средние','обычная густота'],['thick','🌳','Густые и плотные','много волос, хвост толстый'],['east','🖤','Восточный тип','толстые, жёсткие, сверхплотные']]},
+  {k:'curl',t:'Насколько вьются волосы?',o:[['none','➖','Прямые или чуть волнистые',''],['wave','〰️','Волна',''],['curl','🌀','Кудри',''],['tight','➰','Сильно вьющиеся, мелкий завиток','']]},
+  {k:'blond',t:'Волосы осветлены?',o:[['no','🌰','Нет','натуральные или тёмное окрашивание'],['yes','👱‍♀️','Да, блонд или мелирование','волосы в нормальном состоянии'],['broken','💔','Да, и они ломаются','путаются, тянутся']]},
+  {k:'len',t:'Какой длины волосы?',o:[['s','✂️','До плеч',''],['m','💇‍♀️','До лопаток',''],['l','👸','Ниже лопаток','']]}
+ ];
+ var a={},i=0,box=document.getElementById('keQuiz');if(!box)return;
+ function pr(r,len){var lo=r[0],hi=r[1],k=len==='s'?0:len==='m'?.5:1;var x=Math.round((lo+(hi-lo)*k*.75)/500)*500,y=Math.round((lo+(hi-lo)*(.35+k*.65))/500)*500;if(y<=x)y=x+1000;if(y>hi)y=hi;return x.toLocaleString('ru-RU')+' – '+y.toLocaleString('ru-RU')+' ₽'}
+ function result(){
+  var g=a.goal,d=a.dens,c=a.curl,b=a.blond,L=a.len,R;
+  if(g==='repair'||b==='broken'){R={n:'Реконструкция Hair.Repair',r:(d==='thick'||d==='east'||L==='l')?[6000,8000]:[5000,6500],t:(d==='thick'||L==='l')?'1,5–2,5 часа':'1,5 часа',p:['🛡 Наш авторский реконструктор <b>100% останавливает ломкость за 3 процедуры</b>. Для осветлённых волос это первый шаг: сначала возвращаем прочность.','✨ Хотите ещё и гладкости и блеска? Добавим кератин вторым слоем — эффект ботокса.']};}
+  else if(g==='volume'){R={n:'Прикорневой объём WOWBOOST',r:[6000,7000],t:'около 2 часов',p:['🎈 Волосы перестают прилипать к голове, мыть их можно реже, а длина остаётся естественной.','💡 Вместе с кератином WOWBOOST стоит дешевле.']};}
+  else if(g==='smooth'){if(c==='tight'||c==='curl'){R={n:'Кератиновое выпрямление',r:d==='east'?[9000,20000]:[6000,14000],t:'2,5–3,5 часа',p:['Ботокс разглаживает и питает, но не выпрямит сильный завиток. Честнее выбрать кератин — мастер подберёт состав и отступ от корней, чтобы сохранить объём.']};}
+   else{R={n:'Ботокс волос',r:(d==='thick'||d==='east'||L==='l')?[7500,11000]:[5000,8000],t:(d==='thick'||L==='l')?'2–3 часа':'1,5–2 часа',p:['🧪 Самый питательный состав BotoHair Bixy: разглаживает, даёт блеск и мягкость, объём сохраняется.']};}}
+  else if((c==='tight'||c==='curl')&&b==='no'&&(d==='thick'||d==='east')){R={n:'Нанопластика + кератин',r:[7500,12000],t:'2,5–3,5 часа',p:['🌿 Абсолютно без запаха, сильное выпрямление и срок носки до 9 месяцев. Идеально для натуральных неосветлённых волос.','Альтернатива — кератин для вашего типа волос.']};}
+  else{var r=d==='east'?[9000,20000]:(d==='thick'||c==='curl'||c==='tight')?[6000,14000]:[5000,8000];R={n:b==='yes'?'Кератин на блонд':'Кератиновое выпрямление',r:r,t:d==='east'?'3–4,5 часа':(r[0]===5000?'1,5–2 часа':'2,5–3,5 часа'),p:[d==='east'?'🏆 Для восточного типа — авторская техника «кератин + нанопластика»: тщательная проработка каждой пряди и минимум запаха.':d==='thin'?'🪶 Для тонких волос — питательная пластика Jkeratin без проработки корней: волосы не утяжеляются и лучше сохраняют объём.':'💪 Сильный и питательный состав Jkeratin: убирает пушистость и «одуванчик», гладкость до 6 месяцев.',b==='yes'?'🤍 Для блонда — самый бережный подбор температуры и активатор S+S для восстановления.':'⚡ Делаем быстро — без потери качества.']};}
+  if(g==='help')R.p.unshift('🤔 Это предварительный подбор. Пришлите фото волос — мастер подскажет точно и бесплатно.');
+  box.innerHTML='<div class="res"><div class="step">Ваш результат</div><div class="rn gt">'+R.n+'</div><div class="rp">'+pr(R.r,L)+'</div><div class="rt">⏱ '+R.t+' · точную цену называем до начала процедуры — дальше она не меняется</div>'+R.p.map(function(x){return '<p>'+x+'</p>'}).join('')+
+  '<div class="btns"><a class="btn js-max" data-s="'+R.n+' (подбор на сайте)" href="'+MAX+'" target="_blank" rel="noopener">💬 Записаться в Max</a><a class="btn ghost" href="#zayavka">📞 Оставить телефон — перезвоним</a></div><button class="back" type="button" id="keAgain">↺ Пройти заново</button></div>';
+  document.getElementById('keAgain').onclick=function(){a={};i=0;draw()};
+ }
+ function draw(){
+  if(i>=Q.length)return result();
+  var q=Q[i];
+  box.innerHTML='<div class="step">Вопрос '+(i+1)+' из '+Q.length+'</div><div class="bar"><div style="width:'+((i)/Q.length*100)+'%"></div></div><h3>'+q.t+'</h3><div class="opts">'+q.o.map(function(o){return '<button class="opt" type="button" data-v="'+o[0]+'"><span class="e">'+o[1]+'</span><span><b>'+o[2]+'</b>'+(o[3]?'<small>'+o[3]+'</small>':'')+'</span></button>'}).join('')+'</div>'+(i?'<button class="back" type="button">← Назад</button>':'');
+  box.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){a[q.k]=b.getAttribute('data-v');i++;draw()}});
+  var bk=box.querySelector('.back');if(bk)bk.onclick=function(){i--;draw()};
+ }
+ draw();
+})();
+</script>
