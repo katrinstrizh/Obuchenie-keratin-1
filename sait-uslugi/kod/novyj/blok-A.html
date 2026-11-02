@@ -297,6 +297,7 @@
   if(g==='help')R.p.unshift('🤔 Это предварительный подбор. Пришлите фото волос — мастер подскажет точно и бесплатно.');
   box.innerHTML='<div class="res"><div class="step">Ваш результат</div><div class="rn gt">'+R.n+'</div><div class="rp">'+pr(R.r,L)+'</div><div class="rt">⏱ '+R.t+' · точную цену называем до начала процедуры — дальше она не меняется</div>'+R.p.map(function(x){return '<p>'+x+'</p>'}).join('')+
   '<div class="btns"><a class="btn js-max" data-s="'+R.n+' (подбор на сайте)" href="'+MAX+'" target="_blank" rel="noopener">💬 Записаться в Max</a><a class="btn ghost" href="#zayavka">📞 Оставить телефон — перезвоним</a></div><button class="back" type="button" id="keAgain">↺ Пройти заново</button></div>';
+  try{var ans=Q.map(function(q){var o=q.o.filter(function(x){return x[0]===a[q.k]})[0];return o?o[2]:''}).join(' / ');document.querySelectorAll('input[name="podbor"]').forEach(function(f){f.value=R.n+' · '+pr(R.r,L)+' · ответы: '+ans})}catch(e){}
   document.getElementById('keAgain').onclick=function(){a={};i=0;draw()};
  }
  function draw(){
