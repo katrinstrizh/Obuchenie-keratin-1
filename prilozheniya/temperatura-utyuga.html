@@ -1,0 +1,689 @@
+<!-- Калькулятор температуры утюга Keratin.Expert. Для Tilda: вставить целиком в блок T123 «HTML-код» на отдельной странице без шапки и подвала. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:linear-gradient(0.145turn,#18d4b2 0%,#116e66 29%,#148c82 50%,#15a69a 68%,#1bcfc0 85%,#21e8d7 100%);--mint:#18d4b2;--deep:#116e66;--text:#0A2F2A;--text2:#1A4038;--muted:#6B8F86;--bg:#F8FCFB;--line:rgba(17,110,102,.14);--rose:#E0457B}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#eef6f4;font-family:Montserrat,system-ui,sans-serif;color:var(--text)}
+.app{position:relative;max-width:440px;min-height:100vh;margin:0 auto;background:var(--bg);overflow:hidden;padding:22px 18px 60px}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.75;z-index:0;animation:fl 14s ease-in-out infinite;pointer-events:none}
+.b1{width:260px;height:260px;background:#FCE1EA;top:-80px;right:-90px}.b2{width:220px;height:220px;background:#FFE3D6;top:520px;left:-120px;animation-delay:-5s}.b3{width:200px;height:200px;background:#D6F7EF;bottom:120px;right:-80px;animation-delay:-9s}
+@keyframes fl{50%{transform:translate(18px,24px)}}
+.z{position:relative;z-index:1}
+.brand{font-weight:800;font-size:13px;letter-spacing:1.4px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:24px;font-weight:800;line-height:1.25;margin:14px 0 6px}
+.sub{color:var(--muted);font-size:14px;font-weight:500;line-height:1.5}
+.glass{background:rgba(255,255,255,.68);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.88);border-radius:24px;box-shadow:0 10px 30px rgba(17,110,102,.08)}
+.q{padding:16px;margin-top:14px;animation:in .5s both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.q h3{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.q .who{font-size:12px;color:var(--muted);font-weight:500;margin:0 0 12px 32px}
+.n{width:24px;height:24px;border-radius:50%;background:var(--g);color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;color:var(--text2);font-family:inherit;font-weight:600;font-size:13px;padding:10px 14px;border-radius:18px;cursor:pointer;transition:all .25s;text-align:left;line-height:1.35}
+.chip small{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-top:2px}
+.chip.on{background:var(--g);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(24,212,178,.3)}
+.chip.on small{color:rgba(255,255,255,.9)}
+.list .chip{width:100%}
+.how{margin:10px 0 0 32px;border:0;background:none;font-family:inherit;font-size:13px;font-weight:700;color:var(--deep);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.how i{font-style:normal;width:20px;height:20px;border-radius:50%;background:#E3FAF5;display:grid;place-items:center;font-size:12px}
+.extra{margin-top:12px;animation:in .4s both}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+input[type=number]{width:90px;font-family:inherit;font-size:16px;font-weight:700;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);color:var(--text);background:#fff}
+.res{margin-top:18px;padding:22px 18px;text-align:center}
+.lbl{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted)}
+.temp{font-size:54px;font-weight:800;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1;margin:4px 0}
+.temp.pop{animation:pop .5s cubic-bezier(.2,.9,.2,1.25)}
+@keyframes pop{from{transform:scale(.9);opacity:.4}}
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 4px}
+.zones div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 6px}
+.zones b{display:block;font-size:24px;font-weight:800;color:var(--deep)}.zones span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.3;display:block}
+.pass{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.pass div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 6px}
+.pass b{display:block;font-size:20px;font-weight:800}.pass span{font-size:11px;color:var(--muted);font-weight:600}
+.note{font-size:13px;font-weight:500;color:var(--text2);background:#E3FAF5;border-radius:16px;padding:12px 14px;margin-top:10px;line-height:1.5;text-align:left}
+.note b{color:var(--deep)}
+.note.main{background:#fff;border:1.5px solid var(--mint)}
+.pc{display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;margin-top:12px}
+.pc .top{display:flex;gap:12px;align-items:center}
+.pc .bt{width:46px;height:62px;flex:none}
+.pc b{font-size:16px;font-weight:800;display:block}
+.pc .tg{font-size:12px;color:var(--muted);font-weight:600}
+.pc .dur{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:700;color:var(--deep);background:#E3FAF5;border-radius:50px;padding:4px 10px}
+.pc p{font-size:13.5px;line-height:1.55;color:var(--text2);font-weight:500;margin-top:10px}
+.pc details{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.pc summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--deep);list-style:none;display:flex;align-items:center;gap:6px}
+.pc summary::-webkit-details-marker{display:none}
+.pc summary::before{content:"＋";width:20px;height:20px;border-radius:50%;background:#E3FAF5;display:grid;place-items:center;font-size:12px}
+.pc details[open] summary::before{content:"−"}
+.pc ul{margin-top:8px}.pc li{list-style:none;font-size:13px;line-height:1.5;color:var(--text2);padding:5px 0}
+.pc li b{display:inline;font-size:13px;font-weight:700;color:var(--text)}
+.pc .ord{margin-top:12px;border:0;cursor:pointer;background:var(--g);color:#fff;font-family:inherit;font-weight:700;font-size:13px;letter-spacing:.5px;padding:12px 16px;border-radius:50px;align-self:flex-start}
+.jar{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,#FFF3EC,#FCE1EA);border-radius:18px;padding:12px 14px;margin:6px 0 4px;text-align:left}
+.jar svg{width:52px;height:68px;flex:none}
+.jar span{font-size:13px;font-weight:600;color:var(--text2);line-height:1.45}
+.congrats{position:relative;overflow:hidden;margin-top:12px;text-align:center;padding:18px 14px;border-radius:20px;background:linear-gradient(135deg,#FFF3EC,#FCE1EA 60%,#E3FAF5);animation:in .4s both}
+.congrats .big{font-size:40px;animation:pop .6s cubic-bezier(.2,.9,.2,1.4)}
+.congrats b{display:block;font-size:18px;font-weight:800;margin:4px 0}
+.congrats span{font-size:13px;color:var(--text2);font-weight:500;line-height:1.5}
+.cf{position:absolute;top:-10px;width:8px;height:12px;border-radius:2px;animation:fall 2.2s ease-in forwards;pointer-events:none}
+@keyframes fall{to{transform:translate(var(--x),220px) rotate(var(--r));opacity:0}}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.field label small{font-weight:500;color:var(--muted)}
+.field input,.field textarea{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);color:var(--text);background:#fff}
+.field textarea{min-height:76px;resize:vertical}
+.field .err{display:none;color:#B0274F;font-size:12px;font-weight:600;margin-top:4px}
+.field.bad .err{display:block}.field.bad input{border-color:#E0457B}
+.volw{margin-top:12px;background:#F5FBFA;border-radius:18px;padding:10px;animation:in .4s both}
+.volw svg{width:100%;height:auto;display:block}
+.cheat{padding:18px;margin-top:14px;border:1.5px solid var(--mint)}
+.cheat h3{font-size:15px;font-weight:800;margin-bottom:4px}
+.cheat .ln{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px;font-weight:600}
+.cheat .ln:last-of-type{border:0}.cheat .ln em{font-style:normal;font-weight:800;color:var(--deep);text-align:right}
+.ask{display:flex;gap:12px;align-items:center;padding:14px 16px;margin-top:14px;text-decoration:none;color:var(--text)}
+.ask b{font-size:14px;display:block}.ask span{font-size:12px;color:var(--muted);font-weight:500}
+.note.warn{background:#FDECEF}
+.note.warn b{color:#B0274F}
+.recbtn{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;cursor:pointer;margin-top:16px;padding:17px 18px;border-radius:50px;font-family:inherit;font-weight:800;font-size:14px;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:linear-gradient(120deg,#E0457B,#F07AA0,#E0457B);background-size:200% 100%;box-shadow:0 0 0 0 rgba(224,69,123,.55);animation:blink 1.6s ease-in-out infinite,shift 3s linear infinite}
+@keyframes blink{0%{box-shadow:0 0 0 0 rgba(224,69,123,.55)}70%{box-shadow:0 0 0 14px rgba(224,69,123,0)}100%{box-shadow:0 0 0 0 rgba(224,69,123,0)}}
+@keyframes shift{to{background-position:-200% 0}}
+.recbtn .dot{width:9px;height:9px;border-radius:50%;background:#fff;animation:dot 1s ease-in-out infinite alternate}
+@keyframes dot{to{opacity:.25}}
+.rules{padding:16px;margin-top:14px}
+.rules h3{font-size:15px;font-weight:800;margin-bottom:8px}
+.rules li{list-style:none;font-size:13px;line-height:1.5;color:var(--text2);font-weight:500;padding:8px 0 8px 26px;position:relative;border-bottom:1px dashed var(--line)}
+.rules li:last-child{border:0}
+.rules li::before{content:"✦";position:absolute;left:4px;color:var(--mint)}
+.mi{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;font-weight:600}.mi:last-child{border:0}.mi em{font-style:normal;font-weight:800;color:var(--deep)}
+.soon{padding:16px;margin-top:14px;display:flex;gap:12px;align-items:center;opacity:.85}
+.soon .ic{width:42px;height:42px;border-radius:14px;background:#FFF3EC;display:grid;place-items:center;font-size:20px;flex:none}
+.soon b{font-size:14px;display:block}.soon span{font-size:12px;color:var(--muted);font-weight:500}
+/* шторка-подсказка */
+.ov{position:fixed;inset:0;z-index:50;background:rgba(10,47,42,.25);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .35s}
+.ov.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;width:100%;max-width:440px;max-height:86vh;overflow-y:auto;z-index:51;background:#fff;border-radius:28px 28px 0 0;padding:12px 20px calc(26px + env(safe-area-inset-bottom));transform:translate(-50%,105%);transition:transform .5s cubic-bezier(.2,.9,.2,1);touch-action:pan-y;box-shadow:0 -10px 40px rgba(10,47,42,.15)}
+.sheet{visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.2,1),visibility 0s .5s}
+.sheet.show{transform:translate(-50%,0);visibility:visible;transition:transform .5s cubic-bezier(.2,.9,.2,1),visibility 0s}
+.grab{width:46px;height:5px;border-radius:5px;background:#DCE8E5;margin:0 auto 6px}
+.swipe{text-align:center;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:12px}
+.sh-head{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.stk{width:58px;height:58px;border-radius:50%;flex:none;background:linear-gradient(145deg,#FFF3EC,#FCE1EA);border:3px solid #fff;box-shadow:0 6px 16px rgba(17,110,102,.18);overflow:hidden;animation:wave 2.4s ease-in-out infinite;transform-origin:50% 90%}
+.stk svg,.stk img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes wave{20%{transform:rotate(-6deg)}40%{transform:rotate(5deg)}60%{transform:rotate(0)}}
+.sh-head b{font-size:17px;font-weight:800;line-height:1.3;display:block}
+.sh-head span{font-size:12px;color:var(--muted);font-weight:600}
+.sheet p,.sheet li{font-size:14px;line-height:1.55;color:var(--text2);font-weight:500}
+.sheet p{margin-bottom:10px}
+.sheet h4{font-size:14px;font-weight:800;margin:16px 0 8px;color:var(--deep)}
+.sheet ol{padding-left:20px}.sheet ol li{margin-bottom:6px}
+.tl{display:grid;gap:8px;margin:10px 0}
+.tl>div{display:flex;gap:12px;align-items:center;background:#F5FBFA;border-radius:16px;padding:12px;opacity:0;animation:up .45s forwards}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.tl>div:nth-child(2){animation-delay:.12s}.tl>div:nth-child(3){animation-delay:.24s}
+.tl .em{font-size:22px;flex:none;width:34px;text-align:center}
+.tl b{font-size:14px;display:block}.tl span{font-size:13px;color:var(--text2);font-weight:500;line-height:1.4}
+.count{display:flex;gap:10px;align-items:center;background:#FDECEF;border-radius:18px;padding:14px;margin:4px 0 6px}
+.count .big{font-size:40px;font-weight:800;color:#E0457B;line-height:1}
+.count span{font-size:13px;font-weight:600;color:#7A2440;line-height:1.4}
+.opt2{border:1.5px solid var(--line);border-radius:18px;padding:12px 14px;margin-bottom:8px}
+.opt2 b{display:block;font-size:14px;margin-bottom:2px}
+.btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;width:100%;border:0;cursor:pointer;background:var(--g);color:#fff;text-decoration:none;font-family:inherit;font-weight:700;font-size:14px;letter-spacing:.8px;text-transform:uppercase;padding:17px 20px;border-radius:50px;box-shadow:0 10px 24px rgba(24,212,178,.35);margin-top:14px}
+.btn2{display:block;text-align:center;width:100%;border:1.5px solid var(--line);background:#fff;color:var(--deep);font-family:inherit;font-weight:700;font-size:13px;padding:14px;border-radius:50px;margin-top:10px;cursor:pointer}
+.hide{display:none!important}
+.bugbtn{display:block;margin:22px auto 0;border:1.5px dashed var(--line);background:rgba(255,255,255,.7);color:var(--muted);font-family:inherit;font-weight:600;font-size:13px;padding:12px 18px;border-radius:50px;cursor:pointer}
+.bugbar{position:fixed;left:50%;top:12px;transform:translate(-50%,-90px);z-index:60;display:flex;gap:12px;align-items:center;background:#0A2F2A;color:#fff;font-weight:700;font-size:13px;padding:10px 10px 10px 18px;border-radius:50px;box-shadow:0 10px 30px rgba(10,47,42,.3);transition:transform .4s cubic-bezier(.2,.9,.2,1.2)}
+.bugbar.show{transform:translate(-50%,0)}
+.bugbar button{border:0;background:#fff;color:#0A2F2A;font-family:inherit;font-weight:700;font-size:12px;padding:8px 12px;border-radius:50px;cursor:pointer}
+body.bugmode .z *{cursor:crosshair!important}
+body.bugmode .z *:hover{outline:2px dashed #E0457B;outline-offset:2px}
+.bugmark{outline:3px solid #E0457B!important;outline-offset:3px;border-radius:12px;animation:bm 1.2s ease-in-out infinite}
+@keyframes bm{50%{outline-color:#F4A8B8}}
+.quote{background:#FDECEF;border-left:3px solid #E0457B;border-radius:0 12px 12px 0;padding:10px 12px;font-size:13px;color:#7A2440;font-weight:500;line-height:1.45;margin:4px 0 12px}
+</style>
+
+<div class="app">
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="z">
+  <div class="brand">KERATIN.EXPERT · ТЕМПЕРАТУРА</div>
+  <h1>Подбор температуры утюга</h1>
+  <p class="sub">Несколько простых вопросов — и вы знаете температуру, количество проводок и какой состав взять. Методика Кати Стриж.</p>
+
+  <div class="glass q">
+    <h3><span class="n">0</span>Что делаем сегодня?</h3><div class="who">От процедуры зависят температура и количество проводок</div>
+    <div class="chips" data-k="proc">
+      <button class="chip on" data-v="ker">Кератин</button>
+      <button class="chip" data-v="bot">Ботокс</button>
+      <button class="chip" data-v="nano">Нанопластика</button>
+      <button class="chip" data-v="rep">Реконструкция Hair.Repair</button>
+    </div>
+  </div>
+
+  <div class="glass q" id="q-thick">
+    <h3><span class="n">1</span>Толщина волоса</h3>
+    <div class="who">Определяете сами, на ощупь</div>
+    <div class="chips" data-k="thick">
+      <button class="chip" data-v="thin">Тонкие<small>как паутинка</small></button>
+      <button class="chip on" data-v="mid">Средние<small>каждый волосок ощущается</small></button>
+      <button class="chip" data-v="thick">Плотные<small>как брёвнышки</small></button>
+    </div>
+    <button class="how" type="button" onclick="openSheet('thick')"><i>?</i>Как определить толщину</button>
+  </div>
+
+  <div class="glass q">
+    <h3><span class="n">2</span>Осветления и окрашивания</h3>
+    <div class="who">Спросите у клиентки, чем и как часто</div>
+    <div class="chips list" data-k="state">
+      <button class="chip on" data-v="nat">Не осветлялись<small>натуральные или окрашены качественным красителем</small></button>
+      <button class="chip" data-v="dye">Осветлены красителем, не блондором<small>10-й, 12-й ряд или бытовой осветляющий краситель</small></button>
+      <button class="chip" data-v="box">Регулярно красились дешёвым бытовым красителем<small>если покрасили один раз — выберите первый вариант</small></button>
+      <button class="chip" data-v="chem">Осветлены блондором или после химзавивки<small>но волосы нормального качества</small></button>
+      <button class="chip" data-v="brk">Сильно повреждены<small>видно, что часть волос обломана</small></button>
+    </div>
+  </div>
+
+  <div class="glass q" id="q-nano">
+    <h3><span class="n">3</span>Была нанопластика?</h3>
+    <div class="who">Спросите у клиентки</div>
+    <div class="chips" data-k="nano">
+      <button class="chip on" data-v="no">Нет</button>
+      <button class="chip" data-v="yes">Да</button>
+    </div>
+    <div class="extra hide" id="nanoAsk">
+      <div class="row"><span class="sub" style="color:var(--text2);font-weight:600">Сколько месяцев назад?</span><input type="number" id="months" value="6" min="1" max="36" inputmode="numeric"></div>
+    </div>
+  </div>
+
+  <div class="glass q" id="q-vol">
+    <h3><span class="n">4</span>Сохранить объём у корней?</h3>
+    <div class="who">Обязательно уточните у клиентки: при одинаковых волосах пожелания бывают разные</div>
+    <div class="chips" data-k="vol">
+      <button class="chip on" data-v="0">Нет, гладко</button>
+      <button class="chip" data-v="3">Да, 3 см</button>
+      <button class="chip" data-v="6">Да, 6 см</button>
+      <button class="chip" data-v="10">Да, 10 см</button>
+    </div>
+    <div id="volBox"></div>
+  </div>
+
+  <div class="glass q" id="q-hard">
+    <h3><span class="n">5</span>Сложные случаи</h3>
+    <div class="who">Есть ли на волосах мелирование, AirTouch, цветные пряди или осветлённые концы?</div>
+    <div class="chips list" data-k="hard">
+      <button class="chip on" data-v="no">Нет<small>работаем по плану выше</small></button>
+      <button class="chip" data-v="ends">Осветлённые концы или длина</button>
+      <button class="chip" data-v="air">Мелирование или AirTouch</button>
+      <button class="chip" data-v="color">Цветные пряди</button>
+    </div>
+    <div id="hardBox"></div>
+  </div>
+
+  <div class="glass res" id="res">
+    <div class="lbl" id="cat"></div>
+    <div class="temp" id="temp"></div>
+    <div id="zones"></div>
+    <div class="lbl" style="margin-top:10px">ПРОВОДОК УТЮЖКОМ</div>
+    <div class="pass" id="pass"></div>
+    <div id="notes"></div>
+    <button class="recbtn hide" id="recbtn" type="button" onclick="openSheet('rec')"><span class="dot"></span><span id="rectxt">Рекомендована реконструкция</span></button>
+  </div>
+
+  <div class="glass rules" id="compBox"></div>
+
+  <div class="glass cheat" id="cheat">
+    <h3>Шпаргалка на эту процедуру</h3>
+    <p class="sub" style="font-size:12px;margin-bottom:8px">Держите перед глазами во время работы</p>
+    <div id="cheatRows"></div>
+    <button class="btn2" type="button" id="copyCheat">Скопировать шпаргалку</button>
+  </div>
+
+  <a class="glass ask" href="https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8" target="_blank" rel="noopener">
+    <div id="askStk"></div>
+    <div><b>Сомневаетесь? Спросите Катю</b><span>Пришлите фото пряди в Max — подскажу температуру</span></div>
+  </a>
+
+  <div class="glass rules">
+    <h3>Для всех волос</h3>
+    <ul>
+      <li>Волосы обязательно должны дымить: кератин запечатывается на волосах.</li>
+      <li>Не путайте мятые волосы и загнутые кончики. Пройдите утюжком несколько волосков: разгладились — не горят.</li>
+      <li>Разное качество волос на одной голове — работайте на разных утюгах с разной температурой.</li>
+    </ul>
+  </div>
+
+  <div class="glass rules" id="actBox">
+    <h3>Активаторы к составу</h3>
+    <div class="chips" data-k="comp" style="margin-bottom:12px">
+      <button class="chip on" data-v="other">Afro, Fix, Plastic, BotoHair</button>
+      <button class="chip" data-v="shine">Keratin Shine</button>
+    </div>
+    <div class="row" style="margin-bottom:6px"><input type="number" id="g" value="50" min="0" step="5" inputmode="numeric"><span class="sub">грамм состава</span></div>
+    <div class="mi"><span>Extra Gloss · <span id="egp">до 25%</span></span><em id="eg"></em></div>
+    <div class="mi" id="ssrow"><span>S+S для осветлённых · 10%</span><em id="ss"></em></div>
+    <div class="mi"><span>Keratin Aid от запаха · 10%</span><em id="ka"></em></div>
+    <p class="sub" style="font-size:12px;margin-top:6px">С Keratin Aid перемешайте смесь и дайте ей постоять 5 минут.</p>
+    <p class="sub hide" id="egn" style="font-size:12px;margin-top:6px">В Shine — 10%: у него и так хорошая термозащита.</p>
+  </div>
+
+  <div class="glass soon">
+    <div class="ic">🌿</div>
+    <div><b>Домашний уход после процедуры</b><span>Рекомендации по уходу появятся здесь скоро</span></div>
+  </div>
+
+  <button class="bugbtn" type="button" id="bugBtn">🐞 Нашли ошибку? Подскажите нам</button>
+</div>
+</div>
+
+<div class="bugbar" id="bugBar"><span>Нажмите на место, где ошибка</span><button type="button" id="bugCancel">Отмена</button></div>
+<div class="ov" id="ov" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="swipe">смахните вниз, чтобы закрыть</div>
+  <div id="sheetBody"></div>
+  <button class="btn2" type="button" onclick="closeSheet()">Понятно</button>
+</div>
+
+<template id="sticker"><div class="stk"><svg viewBox="0 0 52 52" aria-hidden="true"><rect width="52" height="52" fill="#FCE1EA"/><path d="M10 34c0-15 7-24 16-24s16 9 16 24c0 9-3 14-6 18H16c-3-4-6-9-6-18z" fill="#6b4a3a"/><ellipse cx="26" cy="29" rx="11" ry="13" fill="#f6d2bf"/><path d="M15 26c3-8 8-11 11-11s9 3 11 11c-5-2-9-6-11-9-2 4-6 7-11 9z" fill="#6b4a3a"/><circle cx="22" cy="29" r="1.6" fill="#0A2F2A"/><circle cx="30" cy="29" r="1.6" fill="#0A2F2A"/><path d="M22 35c2.5 2.5 5.5 2.5 8 0" stroke="#d9587a" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div></template>
+
+<script>
+const MAX='https://max.ru/u/f9LHodD0cOLvdldOhmWNOLZR59EL9QnmEShubtFx9WtUNVq6pHPSL-da8o8';
+const PN={thick:[[22,40],[22,40],[18,35]],mid:[[17,27],[17,27],[14,18]],thin:[[14,23],[14,23],[10,15]]};
+const PNB={thick:'14–18',mid:'14–17',thin:'12–16'};
+const PC={thick:[[16,25],[14,22],[12,18]],mid:[[14,22],[14,22],[11,18]],thin:[[12,20],[12,20],[10,18]]};
+const PCB={thick:'12–15',mid:'10–14',thin:'8–14'};
+const TN={thick:[230,230],mid:[215,220],thin:[210,215]};
+const TC={thick:[190,190],mid:[180,180],thin:[170,170]};
+const NAMES={nat:'НАТУРАЛЬНЫЕ',dye:'ОСВЕТЛЕНЫ КРАСИТЕЛЕМ',box:'БЫТОВОЙ КРАСИТЕЛЬ',chem:'БЛОНДОР / ХИМЗАВИВКА',brk:'СИЛЬНО ПОВРЕЖДЕНЫ'};
+const TH={thin:'ТОНКИЕ',mid:'СРЕДНИЕ',thick:'ПЛОТНЫЕ'};
+const s={proc:'ker',thick:'mid',state:'nat',nano:'no',comp:'other',vol:'0',hard:'no'};
+const BLT={thin:'170°',mid:'180°',thick:'190°'};
+const bt=()=>s.state==='brk'?'130–160°':BLT[s.thick];
+const BLIST='тонкие 170°, нормальные 180°, плотные 190°, сильно повреждённые 130–160°';
+function hardHtml(){
+  if(s.hard==='ends') return `<div class="note" style="margin-top:12px"><b>Заведите два утюжка — и всё получится.</b><br>
+   • Профессиональный, качественный, для кератинового выпрямления — им выпрямляйте натуральные волосы у корней.<br>
+   • Обычный бытовой с регулятором до 190° — главное, чтобы была градуировка температуры. Им работайте с осветлёнными концами, внимательно подбирая температуру.<br><br>
+   Почему два: одна температура не подойдёт. Низкая не выпрямит натуральные волосы, высокая может повредить осветлённые.</div>`;
+  if(s.hard==='air') return `<div class="congrats" id="congrats"><div class="big">🎉</div><b>Поздравляем!</b><span>Перед вами один из самых сложных случаев в кератиновом выпрямлении — и теперь вы знаете, как с ним работать.</span></div>
+   <div class="note"><b>Температура — как для блонда:</b> по толщине и состоянию волос из вопроса 2. ${BLIST}. Для этих волос — <b>${bt()}</b>.<br><br>
+   Такая температура выпрямит осветлённые пряди, но не выпрямит здоровые волосы полностью. Поэтому получится <b>эффект ботокса — разглаживание, а не выпрямление.</b></div>
+   <div class="note main"><b>Проговорите это с клиенткой до начала процедуры</b>, чтобы результат не стал для неё неожиданностью.<br><br>
+   Или сразу сделайте ботокс: вы получите красивое разглаживание, а качественный ботокс, такой как BotoHair Bixy от Jkeratin, ещё и отлично питает волосы.</div>`;
+  if(s.hard==='color') return `<div class="note" style="margin-top:12px"><b>Цветные пряди — это всегда осветлённые волосы</b>, скорее всего блондором: чтобы цвет получился ярким, волосы сначала осветляют. Без осветления цвет гораздо бледнее.<br><br>Уточните у клиентки, осветлялись ли волосы и чем. С опытом вы будете определять это сами и быстро.</div>
+   <div class="note"><b>Работайте как с осветлёнными блондором</b> — независимо от оттенка, даже если пряди тёмно-синие. Температура: ${BLIST}. Для этих волос — <b>${bt()}</b>.</div>
+   <div class="note main"><b>Ориентируйтесь на то, как ведут себя волосы.</b> Попробуйте температуру чуть выше и проверьте:<br>• не горят — можно оставить чуть выше;<br>• горят — снижайте.<br><br>Следите за каждым волоском: под составом повреждение бывает незаметно. Протестируйте несколько температур на прядке и выберите самую подходящую.<br><br>Если вы только начинаете — нормально пока не брать таких клиенток и сначала набрать опыт на более простых волосах.</div>`;
+  return '';
+}
+function confetti(){
+  const box=document.getElementById('congrats'); if(!box)return;
+  const c=['#18d4b2','#E0457B','#FFC857','#116e66','#F07AA0','#21e8d7'];
+  for(let i=0;i<46;i++){const e=document.createElement('i');e.className='cf';
+    e.style.left=Math.random()*100+'%';e.style.background=c[i%c.length];
+    e.style.animationDelay=(Math.random()*.4)+'s';e.style.setProperty('--x',(Math.random()*120-60)+'px');
+    e.style.setProperty('--r',(Math.random()*720-360)+'deg');box.appendChild(e);setTimeout(()=>e.remove(),2600);}
+}
+function volHtml(){
+  const v=+s.vol;
+  if(!v) return `<div class="note" style="margin-top:12px">Работайте как обычно: ближе к корням, отступая около 1 см.</div>`;
+  return `<div class="volw">
+   <svg viewBox="0 0 240 160" role="img" aria-label="Шляпная зона выше бугорков головы">
+    <defs><linearGradient id="hz" x1="0" x2="1"><stop offset="0" stop-color="#18d4b2"/><stop offset="1" stop-color="#116e66"/></linearGradient>
+    <clipPath id="hc"><ellipse cx="120" cy="82" rx="70" ry="66"/></clipPath></defs>
+    <rect x="98" y="138" width="44" height="22" rx="8" fill="#f6d2bf"/>
+    <ellipse cx="120" cy="82" rx="70" ry="66" fill="#f6d2bf"/>
+    <g clip-path="url(#hc)"><rect x="40" y="0" width="160" height="72" fill="url(#hz)"/><rect x="40" y="72" width="160" height="90" fill="#8a5a44" opacity=".22"/></g>
+    <path d="M51 72H189" stroke="#E0457B" stroke-width="2.2" stroke-dasharray="6 4"/>
+    <circle cx="52" cy="72" r="5" fill="#E0457B"/><circle cx="188" cy="72" r="5" fill="#E0457B"/>
+    <text x="120" y="40" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">шляпная зона</text>
+    <text x="120" y="57" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">отступ ${v} см</text>
+    <text x="120" y="98" text-anchor="middle" font-size="11.5" font-weight="700" fill="#116e66">ниже бугорков</text>
+    <text x="120" y="113" text-anchor="middle" font-size="11.5" font-weight="700" fill="#116e66">отступ около 1 см</text>
+    <text x="8" y="94" font-size="10.5" font-weight="700" fill="#B0274F">бугорки</text>
+    <text x="232" y="94" text-anchor="end" font-size="10.5" font-weight="700" fill="#B0274F">бугорки</text>
+   </svg></div>
+   <div class="note"><b>Отступайте ${v} см только в шляпной зоне</b> — выше бугорков на голове. Ниже бугорков работайте как обычно: ближе к корням, отступая около 1 см.<br><br>Прикорневой объём держится только в шляпной зоне, а не по всей голове: волосы на затылке от влажности могут начать виться.</div>`;
+}
+
+function data(){
+  const t=s.thick;
+  switch(s.state){
+    case 'nat': return {t:TN[t],p:PN[t],b:PNB[t]};
+    case 'box': return {t:[TN[t][0]-10,TN[t][1]-5],p:PN[t],b:PNB[t]};
+    case 'dye': return {t:[190,210],label:'200° ±10',p:[[14,22],[12,20],[12,16]],b:'12–16'};
+    case 'chem':return {t:TC[t],p:PC[t],b:PCB[t]};
+    case 'brk': return {t:[130,160],p:[[10,18],[10,18],[8,16]],b:'7–13'};
+  }
+}
+const deg=r=>r[0]===r[1]?r[0]+'°':r[0]+'–'+r[1]+'°';
+const rng=r=>r[0]+'–'+r[1];
+
+const PROCN={ker:'КЕРАТИН',bot:'БОТОКС',nano:'НАНОПЛАСТИКА',rep:'РЕКОНСТРУКЦИЯ HAIR.REPAIR'};
+function render(anim){
+  const rep=s.proc==='rep';
+  ['q-thick','q-nano','q-vol','q-hard'].forEach(id=>document.getElementById(id).classList.toggle('hide',rep));
+  document.getElementById('actBox').classList.toggle('hide',rep||s.proc==='nano');
+  document.getElementById('compBox').innerHTML=compHtml();
+  if(rep){renderRep(anim);return;}
+  const d=data(), flat=(s.state==='dye'||s.state==='brk');
+  document.getElementById('cat').textContent=NAMES[s.state]+(flat?'':' · '+TH[s.thick])+' · '+PROCN[s.proc];
+  const te=document.getElementById('temp');
+  te.textContent=d.label||deg(d.t);
+  if(anim){te.classList.remove('pop');void te.offsetWidth;te.classList.add('pop');}
+  const z=document.getElementById('zones');
+  document.getElementById('nanoAsk').classList.toggle('hide',s.nano!=='yes');
+  if(s.nano==='yes'){
+    const nz=[Math.max(130,d.t[0]-15),Math.max(130,d.t[1]-10)];
+    z.innerHTML=`<div class="zones"><div><b>${deg(d.t)}</b><span>отросшие волосы<br>без нанопластики</span></div><div><b>${deg(nz)}</b><span>волосы<br>с нанопластикой</span></div></div>`;
+  } else z.innerHTML='';
+  document.getElementById('pass').innerHTML=s.proc==='ker'
+    ? d.p.map((x,i)=>`<div><b>${rng(x)}</b><span>${['корни','длина','концы'][i]}</span></div>`).join('')
+    : s.proc==='nano' ? `<div style="grid-column:1/-1"><b style="font-size:16px">меньше, чем для кератина</b><span>смотрите на волосы</span></div>`
+    : `<div style="grid-column:1/-1"><b>${d.b}</b><span>по всей длине</span></div>`;
+  let n=`<div class="note main"><b>Эта температура — рекомендация.</b> Ваша задача как мастера — научиться подбирать температуру под каждый тип волос.<br><br><b>Внимательно следите за концами.</b> Загибается хоть один кончик — температуру нужно снизить. Но сначала убедитесь, что дело именно в ней: возьмите тонкую прядь и ещё раз проведите утюжком по согнутому концу — аккуратно, медленно, не растягивая волосок.<br>• Выпрямился — дело не в температуре.<br>• Согнулся ещё сильнее, скорёжился — температура высокая. Снижайте до той, что идеально подходит этим волосам.<br><br>Не снижайте слишком сильно: эффект будет слабым и недолгим.<br><br><b>Количество проводок тоже подбирайте по состоянию волос</b> — с опытом вы будете чувствовать это сами.</div>
+  <div class="note"><b>Не бойтесь делать много проводок — бойтесь ошибиться с температурой.</b><br>• Мало проводок — эффект слабый и недолгий.<br>• Температура слишком низкая — нет длительного качественного результата.<br>• Температура слишком высокая — волосы повреждаются.</div>`;
+  if(s.state==='nat' && s.thick==='thick') n+=`<div class="note">На плотных волосах температуру всегда берите повыше.</div>`;
+  if(s.state==='dye') n+=`<div class="note">Температура <b>190–210°</b>, от толщины волоса не зависит.</div>`;
+  if(s.state==='box') n+=`<div class="note">Температура как на натуральных волосах, но <b>на 5–10° ниже</b>. Следите за кончиками: если загибаются — снижайте ещё.</div>`;
+  if(s.state==='chem') n+=`<div class="note warn"><b>Видите, что волосы всё же повреждены и ломкие?</b> Внимательно следите за кончиками. Загнулся хоть один из-за температуры — снизьте её на 5, 10 или 15°.</div>`;
+  if(s.state==='brk') n+=`<div class="note warn">Используйте <b>усиленную термозащиту</b> (Extra Gloss) или состав с хорошей термозащитой, например Keratin Shine. Количество проводок зависит от температуры: чем ниже температура, тем больше проводок.</div>`;
+  if(s.nano==='yes') n+=nanoNote(d);
+  if(s.proc==='nano'){
+    const bl=(s.state==='dye'||s.state==='chem'||s.state==='brk'||s.hard!=='no');
+    if(bl) n=`<div class="note warn"><b>Нанопластику не делаем на осветлённые волосы и после химической завивки.</b> Для этих волос выберите кератин или ботокс — вверху, в вопросе «Что делаем сегодня?».</div>`+n;
+    n+=`<div class="note">Температура для нанопластики подбирается так же, как для кератина. А проводок нужно меньше: смотрите на волосы — когда они переходят в другое состояние, становятся гладкими и начинают блестеть, значит, достаточно.</div>`;
+  }
+  document.getElementById('notes').innerHTML=n;
+  document.getElementById('volBox').innerHTML=volHtml();
+  const hb=document.getElementById('hardBox'), hh=hardHtml();
+  if(hb.dataset.k!==s.hard+s.thick+s.state){hb.innerHTML=hh;hb.dataset.k=s.hard+s.thick+s.state;if(s.hard==='air'&&anim)confetti();}
+  renderCheat(d);
+  const rb=document.getElementById('recbtn');
+  const rec=(s.state==='dye'||s.state==='chem'||s.state==='brk');
+  document.getElementById('zones').style.display='';
+  rb.classList.toggle('hide',!rec);
+  document.getElementById('rectxt').textContent=s.state==='brk'?'Реконструкция очень нужна':'Рекомендована реконструкция';
+  document.getElementById('ssrow').classList.toggle('hide',s.state==='nat'||s.state==='box');
+  mix();
+}
+function renderRep(anim){
+  document.getElementById('cat').textContent='РЕКОНСТРУКЦИЯ HAIR.REPAIR';
+  const te=document.getElementById('temp');
+  const T={nat:'—',box:'140–160°',dye:'140–160°',chem:'140–160°',brk:'130°'};
+  te.textContent=T[s.state];
+  if(anim){te.classList.remove('pop');void te.offsetWidth;te.classList.add('pop');}
+  document.getElementById('zones').innerHTML='';
+  document.getElementById('pass').innerHTML=s.state==='nat'?`<div style="grid-column:1/-1"><b style="font-size:16px">не требуется</b><span>натуральные волосы</span></div>`
+    :`<div style="grid-column:1/-1"><b>4</b><span>медленно, толстыми прядями</span></div>`;
+  const jar=`<div class="jar"><svg viewBox="0 0 52 68" aria-hidden="true"><rect x="6" y="2" width="40" height="14" rx="5" fill="#E0457B"/><rect x="2" y="16" width="48" height="50" rx="12" fill="#fff" stroke="#F4C0D1" stroke-width="2"/><text x="26" y="40" text-anchor="middle" font-size="8" font-weight="800" fill="#116e66" font-family="Montserrat,sans-serif">HAIR</text><text x="26" y="50" text-anchor="middle" font-size="8" font-weight="800" fill="#116e66" font-family="Montserrat,sans-serif">REPAIR</text></svg><span>Hair.Repair отлично держит температуру утюга и останавливает ломкость.</span></div>`;
+  let n=jar;
+  if(s.state==='nat') n+=`<div class="note">Натуральным неокрашенным волосам реконструкция не нужна — дисульфидная связь у них не повреждена. Сделайте кератин, ботокс или послойное холодное восстановление: протеиновая маска → липидная маска → холодный ботокс.</div>`;
+  else if(s.state==='brk') n+=`<div class="note"><b>Значительная часть волос потеряна — 130°.</b> Если волосы ломаются, но держатся лучше, можно 140–160°. Внимательно следите за кончиками.</div>`;
+  else n+=`<div class="note"><b>Волосы ломаются и повреждены — 140–160°.</b> Если видите, что значительная часть волос уже потеряна, берите 130°. Следите за кончиками.</div>`;
+  document.getElementById('notes').innerHTML=n;
+  const rb=document.getElementById('recbtn');
+  rb.classList.toggle('hide',s.state==='nat');
+  document.getElementById('rectxt').textContent='Инструкция Hair.Repair';
+  const rows=[['Процедура','Реконструкция Hair.Repair'],['Волосы',NAMES[s.state].toLowerCase()],['Температура',T[s.state]],['Проводки',s.state==='nat'?'не требуется':'4, медленно, толстыми прядями']];
+  document.getElementById('cheatRows').innerHTML=rows.map(r=>`<div class="ln"><span>${r[0]}</span><em>${r[1]}</em></div>`).join('');
+  cheatText=rows.map(r=>r[0]+': '+r[1]).join('\n');
+}
+function nanoNote(d){
+  const m=Math.max(1,+document.getElementById('months').value||1);
+  const a=Math.round(m*1), b=Math.round(m*1.25);
+  return `<div class="note"><b>Нанопластика была ${m} мес. назад</b> — значит, примерно <b>${a}–${b} см</b> у корней отросли без неё (волосы растут на 12–15 см в год).<br><br>Найдите эту границу и работайте двумя температурами:<br>• отросшие корни — по качеству волос;<br>• длина с нанопластикой — на 10–15° ниже.<br><br>Одна температура на всё не подходит: на высокой волосы с нанопластикой пострадают, на низкой отросшие корни не выпрямятся.</div>`;
+}
+let cheatText='';
+function renderCheat(d){
+  const ker=s.proc==='ker', v=+s.vol;
+  const nz=s.nano==='yes'?[Math.max(130,d.t[0]-15),Math.max(130,d.t[1]-10)]:null;
+  const rows=[
+   ['Процедура',{ker:'Кератин',bot:'Ботокс',nano:'Нанопластика'}[s.proc]],
+   ['Волосы',NAMES[s.state].toLowerCase()+((s.state==='dye'||s.state==='brk')?'':', '+TH[s.thick].toLowerCase())],
+   ['Температура',(d.label||deg(d.t))+(nz?' · с нанопластикой '+deg(nz):'')],
+   ['Проводки',ker?`корни ${rng(d.p[0])}, длина ${rng(d.p[1])}, концы ${rng(d.p[2])}`:s.proc==='nano'?'меньше, чем для кератина — по состоянию волос':d.b],
+   ['Отступ от корней',v?`${v} см в шляпной зоне, ниже ~1 см`:'~1 см']
+  ];
+  const HN={ends:'осветлённые концы — два утюжка',air:'мелирование / AirTouch — эффект ботокса',color:'цветные пряди — как блондор, '+bt()};
+  if(s.hard!=='no') rows.push(['Сложный случай',HN[s.hard]]);
+  if(s.state==='dye'||s.state==='chem'||s.state==='brk') rows.push(['Реконструкция',s.state==='dye'?'1 процедура':'3 процедуры']);
+  document.getElementById('cheatRows').innerHTML=rows.map(r=>`<div class="ln"><span>${r[0]}</span><em>${r[1]}</em></div>`).join('');
+  cheatText=rows.map(r=>r[0]+': '+r[1]).join('\n');
+}
+document.getElementById('copyCheat').addEventListener('click',function(){
+  const b=this,ok=()=>{b.textContent='Скопировано ✓';setTimeout(()=>b.textContent='Скопировать шпаргалку',2500)};
+  try{navigator.clipboard.writeText(cheatText).then(ok,()=>prompt('Скопируйте:',cheatText))}catch(e){prompt('Скопируйте:',cheatText)}
+});
+function f(v){return (Math.round(v*10)/10).toString().replace('.',',')+' г'}
+function mix(){const g=Math.max(0,+document.getElementById('g').value||0), sh=s.comp==='shine';
+  document.getElementById('egp').textContent=sh?'10%':'до 25%';
+  document.getElementById('egn').classList.toggle('hide',!sh);
+  document.getElementById('eg').textContent=f(g*(sh?.1:.25));
+  document.getElementById('ss').textContent=f(g*.1);
+  document.getElementById('ka').textContent=f(g/10);}
+
+
+/* ---------- составы ---------- */
+const AMINO12='аргинин, аланин, глицин, серин, валин, изолейцин, пролин, треонин, гистидин, фенилаланин, аспарагиновая и глутаминовая кислоты';
+const AMINO11='аргинин, аланин, глицин, серин, валин, изолейцин, пролин, треонин, гистидин, фенилаланин, аспарагиновая кислота';
+const P={
+ shine:{n:'Keratin Shine',cap:'#116e66',tg:'суперсильный кератин',
+  t:'Суперсильный состав с долгим эффектом — при соблюдении техники. Волосы становятся плотными, а на сильно вьющихся полностью уходит «фактура», «мелкий зигзаг». Активаторы не нужны: у Shine и так хорошая термозащита и много блеска. Пахнет сильнее остальных составов.',
+  c:[['Касторовое масло','питает и уплотняет кутикулу'],['Масло сладкого миндаля','олеиновая кислота и витамины — блеск и эластичность'],['Гидролизованный шёлк','восстанавливает, увлажняет, даёт блеск'],['Молочная кислота','увлажняет, делает волосы мягкими, облегчает расчёсывание']]},
+ afro:{n:'JHair Afro',cap:'#F28C28',tg:'состав с оранжевой крышечкой',
+  t:'Отлично выпрямляет сильно вьющиеся волосы, и работать с ним комфортнее, чем с Shine. Лёгкая пушистость может вернуться через 3–4 месяца. Содержит много питательных компонентов и аминокислот.',
+  c:[['11 аминокислот','('+AMINO11+') восстанавливают целостность и эластичность волоса; серин помогает дисульфидным связям'],['Гидролизованный шёлк','восстанавливает, увлажняет, даёт блеск'],['Масло сладкого миндаля','блеск и эластичность'],['Экстракт кофе арабики','антиоксидант, защищает от ультрафиолета']]},
+ fix:{n:'Fix Hair',cap:'#7FB8AE',tg:'сильный состав по выгодной цене',
+  t:'Экономичный и при этом сильный: чуть слабее Afro, но сильнее пластики. Выпрямляет кудри, даёт лёгкие волосы и блеск. Аминокислот в нём минимум — это состав для здоровых волос, которым нужно именно выпрямление.',
+  c:[['Масло сладкого миндаля','блеск и эластичность'],['Экстракт кофе арабики','антиоксидант, защищает от ультрафиолета'],['Аминокислоты','в небольшой концентрации']]},
+ plastic:{n:'Plastic Hair (пластика)',cap:'#B9A2E3',tg:'один из самых питательных составов',
+  t:'Отлично напитывает и восстанавливает волосы — вместе с ботоксом это самые питательные составы Jkeratin. Работать с пластикой гораздо комфортнее: запаха меньше. На сильных кудрях может остаться волна и естественный объём — а может, именно этого и хочет ваша клиентка?',
+  c:[['12 аминокислот','('+AMINO12+') восстанавливают целостность и эластичность; серин помогает дисульфидным связям'],['Гидролизованный коллаген','блеск, эластичность, меньше пористость'],['Масло жожоба','жирные кислоты, витамины Е и А — восстановление'],['Молочная кислота','увлажнение, мягкость, блеск'],['Цетиловый спирт','гладкость и лёгкое расчёсывание, не сушит'],['Фиолетовый пигмент','нейтрализует желтизну на блонде']]},
+ bixy:{n:'BotoHair Bixy (ботокс)',cap:'#E0A458',tg:'один из самых питательных составов',
+  t:'Разглаживает и питает, сохраняя объём у корней. Вместе с пластикой — самый питательный состав Jkeratin.',
+  c:[['12 аминокислот','('+AMINO12+') восстанавливают целостность и эластичность'],['Гидролизованный коллаген','блеск и эластичность'],['Масло камелии','против ломкости'],['Аргановое масло','питание, против сухости'],['Экстракт какао','антиоксидант, против сухости'],['Масло сладкого миндаля','блеск и эластичность']]},
+ nano:{n:'NanoPlastica',cap:'#F4A8B8',tg:'выпрямление без запаха',
+  t:'Не делается на осветлённые волосы и после химической завивки.',
+  c:[['Экстракт граната','антиоксидант, питание'],['Пантенол','эластичность и увлажнение']]},
+ rep:{n:'Hair.Repair',cap:'#E0457B',tg:'реконструктор с MSM',
+  t:'Останавливает ломкость после осветления и химзавивки. Отлично держит температуру утюга.',
+  c:[['MSM (метилсульфонилметан)','сера в легкоусвояемой форме: восстанавливает дисульфидную связь и восполняет утраченную серу']]},
+ aid:{n:'Keratin Aid',cap:'#9BC9E8',tg:'активатор против запаха',
+  t:'Хотите, чтобы во время процедуры было меньше запаха и дыма? Добавьте Keratin Aid — 10% от массы состава. Перемешайте и дайте смеси постоять 5 минут.',
+  c:[['Аргановое масло','питание, против сухости'],['Молочная кислота','увлажнение и мягкость']]}
+};
+const bottle=c=>`<svg class="bt" viewBox="0 0 46 62" aria-hidden="true"><rect x="15" y="0" width="16" height="10" rx="3" fill="${c}"/><rect x="18" y="10" width="10" height="5" fill="#dfeeea"/><rect x="5" y="15" width="36" height="47" rx="11" fill="#F5FBFA" stroke="#cfe6e1" stroke-width="1.5"/><rect x="11" y="30" width="24" height="16" rx="4" fill="${c}" opacity=".85"/></svg>`;
+function card(k,dur){const x=P[k];return `<div class="pc"><div class="top">${bottle(x.cap)}<div><b>${x.n}</b><span class="tg">${x.tg}</span>${dur?`<br><span class="dur">${dur}</span>`:''}</div></div>
+ <p>${x.t}</p>
+ <details><summary>Что внутри и как это работает</summary><ul>${x.c.map(c=>`<li><b>${c[0]}</b> — ${c[1]}</li>`).join('')}</ul></details>
+ <button class="ord" type="button" onclick="openOrder('${x.n.replace(/'/g,'')}','Калькулятор температуры → рекомендация составов')">Заказать ${x.n.split(' (')[0]}</button></div>`;}
+const DUR={
+ thick:{shine:'эффект 6–8 месяцев',afro:'эффект 6–7 месяцев, пушистость через 3–4',fix:'чуть меньше, чем Afro',plastic:'до 5 месяцев, пушистость через 2–3'},
+ mid:{shine:'эффект до 8 месяцев',afro:'эффект 6–7 месяцев',fix:'эффект 5–6 месяцев',plastic:'эффект до 5 месяцев'},
+ thin:{plastic:'стойкий эффект 5–6 месяцев',shine:'пушистость вернётся через 6–7 месяцев',afro:'пушистость вернётся через 6–7 месяцев',fix:'эффект 5–7 месяцев'}
+};
+function compHtml(){
+  let h='<h3>Какой состав взять</h3>';
+  if(s.proc==='rep'){
+    if(s.state==='nat') return h+`<p class="sub" style="color:var(--text2)">Натуральным неокрашенным волосам реконструкция не нужна. Сделайте кератин, ботокс или послойное холодное восстановление: протеиновая маска → липидная маска → холодный ботокс.</p>`;
+    return h+card('rep','1–3 процедуры, раз в 7–14 дней');
+  }
+  if(s.proc==='bot') return h+card('bixy')+card('aid');
+  if(s.proc==='nano'){ if(s.state==='dye'||s.state==='chem'||s.state==='brk'||s.hard!=='no') return h+`<p class="sub" style="color:var(--text2)">Для этих волос нанопластика не подходит — выберите кератин или ботокс, и здесь появятся подходящие составы.</p>`; return h+card('nano');}
+  const REC={dye:'Волосы осветлены красителем: если ломкости нет, рекомендуем <b>1 раз сделать реконструкцию Hair.Repair</b>.',chem:'Волосы осветлены блондором или после химзавивки: рекомендуем <b>3 реконструкции Hair.Repair</b>.',brk:'Волосы сильно повреждены: рекомендуем <b>3 реконструкции Hair.Repair</b> — до или после кератина, в любой последовательности.'};
+  const t=s.thick,D=DUR[t];
+  const intro={thick:'Для плотных и сильно вьющихся волос советую <b>Shine или Afro</b> — они дадут сильный и долгий эффект.',
+   mid:'Здесь выбор за вами и клиенткой: что важнее — комфорт во время процедуры (запах) или длительность эффекта. Shine и Afro держатся дольше, Fix — средне, пластика — до 5 месяцев, зато с ней очень приятно работать.',
+   thin:'На тонких, не сильно вьющихся волосах чаще всего делаем <b>пластику</b>, но подойдёт любой состав. Сильные Shine и Afro продержатся дольше. Такие волосы можно выпрямить даже ботоксом — эффект будет до 4 месяцев.'}[t];
+  const order={thick:['shine','afro','fix','plastic'],mid:['shine','afro','fix','plastic'],thin:['plastic','shine','afro','fix']}[t];
+  h+=`<p class="sub" style="color:var(--text2)">${intro}</p>`;
+  if(t==='thin') h+=`<div class="note">Советую отступить от корней: так сохранится естественный объём, и клиентке не придётся мыть голову чаще. Обязательно обсудите это с ней.</div>`;
+  h+=`<div class="note main"><b>Важно: любой состав можно использовать на любые волосы.</b> Главное — правильно подобрать температуру утюга. А от силы состава зависят сила выпрямления и длительность эффекта.</div>`;
+  if(REC[s.state]) h+=`<div class="note warn">${REC[s.state]}</div>`;
+  h+=order.map(k=>card(k,D[k])).join('');
+  h+=card('aid');
+  return h;
+}
+
+/* ---------- шторки ---------- */
+const stk=()=>document.getElementById('sticker').innerHTML;
+const SHEETS={
+ bug:()=>`<div class="sh-head">${stk()}<div><b>Нашли ошибку?</b><span>Спасибо, что помогаете сделать приложение лучше</span></div></div>
+  <form id="bf" novalidate>
+   <div class="field"><label>Вы отметили</label><div class="quote">${BUG_TEXT||'—'}</div></div>
+   <div class="field" id="f_desc"><label>Опишите, в чём проблема</label><textarea id="b_desc" placeholder="Например: для тонких волос после блондора я работаю на 165°"></textarea><div class="err">Напишите пару слов, что не так</div></div>
+   <div class="field"><label>Как с вами связаться <small>— необязательно</small></label><input id="b_contact" placeholder="Телефон, Telegram или ВК"></div>
+   <button class="btn" type="submit">Отправить</button>
+  </form>
+  <div id="b_done" style="display:none"></div>`,
+
+ order:()=>`<div class="sh-head">${stk()}<div><b>Заказ состава</b><span>Ответим и всё оформим</span></div></div>
+  <form id="of" novalidate>
+   <div class="field"><label>Состав</label><input id="o_prod" value="${ORDER_PROD}"></div>
+   <div class="field"><label>Доставка</label>
+    <div class="chips" id="o_del">
+     <button type="button" class="chip on" data-v="ozon">Озон</button>
+     <button type="button" class="chip" data-v="cdek">СДЭК</button>
+     <button type="button" class="chip" data-v="other">Другое<small>менеджер уточнит</small></button>
+    </div></div>
+   <div class="field" id="f_addr"><label>Адрес пункта выдачи</label><input id="o_addr" placeholder="Город, улица, дом"><div class="err">Укажите адрес пункта выдачи</div></div>
+   <div class="field" id="f_name" style="display:none"><label>Фамилия и имя получателя</label><input id="o_name" autocomplete="name"><div class="err">Укажите фамилию и имя</div></div>
+   <div class="field" id="f_phone"><label id="l_phone">Номер телефона, указанный в Озоне</label><div class="sub" id="h_phone" style="font-size:12px;margin:-2px 0 6px">Посылку оформим на этот номер в Озоне</div><input id="o_phone" type="tel" inputmode="tel" placeholder="8 900 000-00-00" autocomplete="tel"><div class="err">Укажите номер телефона</div></div>
+   <div class="field"><label>Ссылка на ваш ВКонтакте <small>— необязательно</small></label><input id="o_vk" placeholder="vk.com/..."></div>
+   <div class="field"><label>Что ещё хотите заказать или спросить у технолога? <small>— необязательно</small></label><textarea id="o_q" placeholder="Например: какой состав взять на тонкие волосы?"></textarea></div>
+   <button class="btn" type="submit">Отправить заказ</button>
+  </form>
+  <div id="o_done" style="display:none"></div>`,
+ thick:()=>`<div class="sh-head">${stk()}<div><b>Как определить толщину волоса</b><span>Катя Стриж, технолог</span></div></div>
+  <p>Возьмите тоненькую прядку и покатайте волоски между пальцами.</p>
+  <div class="tl">
+   <div><span class="em">🕸️</span><div><b>Не ощущаются, как паутинка</b><span>Тонкие волосы</span></div></div>
+   <div><span class="em">🧵</span><div><b>Каждый волосок ощущается</b><span>Средние, нормальной толщины</span></div></div>
+   <div><span class="em">🪵</span><div><b>Перекатываются, как брёвнышки</b><span>Плотные, толстые — температуру берите повыше</span></div></div>
+  </div>`,
+ rec:()=>{
+  const brk=s.state==='brk', times=s.state==='dye'?1:3;
+  let h=`<div class="sh-head">${stk()}<div><b>${brk?'Этим волосам очень нужна реконструкция':'Рекомендована реконструкция Hair.Repair'}</b><span>Катя Стриж, технолог</span></div></div>
+   <div class="count"><div class="big">${times}</div><span>${times===1?'процедура достаточно: волосы осветлены красителем, а не блондором':'процедуры, раз в 7–14 дней. После третьей ломкость останавливается полностью'}</span></div>`;
+  if(brk) h+=`<p><b>Реконструкция — лучшее, что можно сейчас сделать для этих волос:</b> она остановит ломкость и сохранит длину. Делать её можно в любой последовательности с кератином — до или после. А сегодня главное — грамотно подобрать температуру утюга, и вы с этим справитесь.</p>
+   <h4>Два варианта на сегодня</h4>
+   <div class="opt2"><b>Лучше: реконструкция + кератин вторым слоем</b><span class="sub">Восстанавливаем волосы и сразу выпрямляем. Инструкция ниже.</span></div>
+   <div class="opt2"><b>Или: сегодня кератин, реконструкция — следующим визитом</b><span class="sub">Пригласите клиентку на реконструкцию, а состав закажите заранее.</span></div>`;
+  else h+=`<p>После ${s.state==='dye'?'осветления':'блондора и химзавивки'} повреждается дисульфидная связь — отсюда ломкость. С кератином реконструкцию можно сочетать в любой последовательности.</p>`;
+  h+=`<h4>Почему Hair.Repair</h4><p>Активное вещество — MSM (метилсульфонилметан): сера в легкоусвояемой форме восстанавливает дисульфидную связь и восполняет утраченную серу. Останавливает ломкость, помогает отрастить длину. На натуральных здоровых волосах наносить не нужно.</p>
+   <h4>Инструкция</h4><ol>
+    <li>Помойте волосы обычным или мягким шампунем.</li>
+    <li>Отожмите полотенцем, просушите феном на 80–90%.</li>
+    <li>Нанесите состав толстыми прядями на повреждённые участки (осветлённые, после химзавивки). Выдержите 15–20 минут.</li>
+    <li><b>С кератином вторым слоем:</b> через 10 минут выдержки просушите на 80% и нанесите кератин толстыми прядями, прочёсывая массажкой с мягкими зубьями. Эффект до 1,5 месяцев.</li>
+    <li>Просушите феном на 90% — при утюжке волосы не должны шипеть.</li>
+    <li>Проработайте утюжком толстыми прядями, медленно, 4 раза, при 140–160°.</li>
+    <li>Тщательно смойте водой, отожмите полотенцем.</li>
+    <li>По желанию: One Moment (пептидный филлер) на 1–2 минуты, смыть. Маска по типу волос и/или спрей 7 секунд.</li>
+   </ol>
+   <button class="btn" type="button" onclick="openOrder('Hair.Repair','Калькулятор температуры → рекомендация реконструкции')">Заказать Hair.Repair</button>`;
+  return h;}
+};
+
+const TG_TOKEN='__TG_TOKEN__';
+const TG_CHAT='-1003962240384';
+let ORDER_PROD='',ORDER_FROM='';
+function openOrder(p,from){ORDER_PROD=p;ORDER_FROM=from||'';openSheet('order');initOrder();}
+function initOrder(){
+  let del='ozon';
+  const box=document.getElementById('o_del');
+  const upd=()=>{document.getElementById('f_addr').style.display=del==='other'?'none':'block';
+    document.getElementById('f_name').style.display=del==='cdek'?'block':'none';
+    document.getElementById('l_phone').textContent=del==='ozon'?'Номер телефона, указанный в Озоне':'Номер телефона';document.getElementById('h_phone').style.display=del==='ozon'?'block':'none';};
+  box.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;box.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');del=b.dataset.v;upd();});
+  document.querySelectorAll('#of input').forEach(i=>i.addEventListener('input',()=>i.closest('.field').classList.remove('bad')));
+  document.getElementById('of').addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=id=>document.getElementById(id).value.trim();
+    let ok=true;const need=(id,f)=>{if(!v(id)){document.getElementById(f).classList.add('bad');ok=false;}};
+    if(del!=='other')need('o_addr','f_addr');
+    if(del==='cdek')need('o_name','f_name');
+    need('o_phone','f_phone');
+    if(!ok)return;
+    const D={ozon:'Озон',cdek:'СДЭК',other:'другое — уточнить'};
+    const t=['📱 ЗАКАЗ ИЗ ПРИЛОЖЕНИЯ  #приложение','Откуда: '+(ORDER_FROM||'Калькулятор температуры'),'','Состав: '+v('o_prod'),'Доставка: '+D[del]]
+      .concat(del!=='other'?['Пункт выдачи: '+v('o_addr')]:[]).concat(del==='cdek'?['Получатель: '+v('o_name')]:[])
+      .concat(['Телефон: '+v('o_phone')]).concat(v('o_vk')?['ВК: '+v('o_vk')]:[]).concat(v('o_q')?['Вопрос / ещё: '+v('o_q')]:[]).join('\n');
+    const btn=document.querySelector('#of button[type=submit]');
+    const done=(html)=>{document.getElementById('of').style.display='none';const d=document.getElementById('o_done');d.style.display='block';d.innerHTML=html;};
+    const fallback=()=>{done(`<div class="congrats"><div class="big">💚</div><b>Заказ почти оформлен</b><span>Нажмите кнопку ниже — текст заказа скопируется, вставьте его в чат с нами в Max. Менеджер ответит и уточнит детали.</span></div><a class="btn" id="o_send" href="${MAX}" target="_blank" rel="noopener">Отправить в Max</a>`);
+      document.getElementById('o_send').addEventListener('click',()=>{try{navigator.clipboard.writeText(t)}catch(_){}});};
+    if(!TG_TOKEN||!TG_CHAT||TG_TOKEN.indexOf('__')===0){fallback();return;}
+    btn.disabled=true;btn.textContent='Отправляем…';
+    const body=new URLSearchParams({chat_id:TG_CHAT,text:t});
+    fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',{method:'POST',body})
+      .then(r=>r.json()).then(j=>{ if(!j.ok) throw 0;
+        done(`<div class="congrats"><div class="big">🎉</div><b>Заказ отправлен!</b><span>Мы скоро свяжемся с вами, уточним детали и отправим посылку.</span></div>`);})
+      .catch(()=>{btn.disabled=false;btn.textContent='Отправить заказ';fallback();});
+  });
+}
+const sheet=document.getElementById('sheet'),ov=document.getElementById('ov');
+function openSheet(k){document.getElementById('sheetBody').innerHTML=SHEETS[k]();sheet.scrollTop=0;sheet.style.transform='';sheet.classList.add('show');ov.classList.add('show');}
+function closeSheet(){try{if(BUG_EL)BUG_EL.classList.remove('bugmark')}catch(_){}sheet.style.transform='';sheet.classList.remove('show');ov.classList.remove('show');}
+let y0=null,dy=0;
+sheet.addEventListener('touchstart',e=>{if(sheet.scrollTop>0)return;y0=e.touches[0].clientY;dy=0;sheet.style.transition='none';},{passive:true});
+sheet.addEventListener('touchmove',e=>{if(y0===null)return;dy=Math.max(0,e.touches[0].clientY-y0);sheet.style.transform=`translate(-50%,${dy}px)`;},{passive:true});
+sheet.addEventListener('touchend',()=>{if(y0===null)return;sheet.style.transition='';y0=null;if(dy>80)closeSheet();else sheet.style.transform='';});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();bugStop();}});
+/* ---------- нашли ошибку ---------- */
+let BUG_EL=null,BUG_WHERE='',BUG_TEXT='';
+function bugStart(){closeSheet();document.body.classList.add('bugmode');document.getElementById('bugBar').classList.add('show');}
+function bugStop(){document.body.classList.remove('bugmode');document.getElementById('bugBar').classList.remove('show');}
+document.getElementById('bugBtn').addEventListener('click',e=>{e.stopPropagation();bugStart();});
+document.getElementById('bugCancel').addEventListener('click',()=>{bugStop();});
+document.addEventListener('click',e=>{
+  if(!document.body.classList.contains('bugmode'))return;
+  const el=e.target.closest('.z *'); if(!el||el.id==='bugBtn')return;
+  e.preventDefault();e.stopPropagation();
+  bugStop();
+  if(BUG_EL)BUG_EL.classList.remove('bugmark');
+  BUG_EL=el.closest('.note,.chip,.pc,.mi,.ln,.q,.res,.rules,.cheat,.zones,.pass,.temp,p,li')||el;
+  BUG_EL.classList.add('bugmark');
+  const card=BUG_EL.closest('.q,.res,.rules,.cheat,.glass');
+  const h=card&&card.querySelector('h3,.lbl');
+  BUG_WHERE=h?h.textContent.trim():'';
+  BUG_TEXT=(BUG_EL.innerText||'').replace(/\s+/g,' ').trim().slice(0,220);
+  openSheet('bug');initBug();
+},true);
+function settingsLine(){
+  const pr={ker:'кератин',bot:'ботокс',nano:'нанопластика',rep:'реконструкция'}[s.proc];
+  return `${pr}; ${NAMES[s.state].toLowerCase()}; толщина: ${TH[s.thick].toLowerCase()}; нанопластика: ${s.nano==='yes'?'да':'нет'}; объём: ${+s.vol?s.vol+' см':'нет'}; сложный случай: ${{no:'нет',ends:'осветлённые концы',air:'мелирование/AirTouch',color:'цветные пряди'}[s.hard]}`;
+}
+function initBug(){
+  document.getElementById('bf').addEventListener('submit',e=>{
+    e.preventDefault();
+    const d=document.getElementById('b_desc').value.trim();
+    if(!d){document.getElementById('f_desc').classList.add('bad');return;}
+    const c=document.getElementById('b_contact').value.trim();
+    const t=['🐞 ОШИБКА В ПРИЛОЖЕНИИ  #ошибка','Экран: Калькулятор температуры'+(BUG_WHERE?' → '+BUG_WHERE:''),'Отмечено: «'+BUG_TEXT+'»','Выбрано: '+settingsLine(),'','Что не так: '+d].concat(c?['Контакт: '+c]:[]).join('\n');
+    const done=html=>{document.getElementById('bf').style.display='none';const o=document.getElementById('b_done');o.style.display='block';o.innerHTML=html;if(BUG_EL)BUG_EL.classList.remove('bugmark');};
+    const fb=()=>{done(`<div class="congrats"><div class="big">💚</div><b>Спасибо!</b><span>Нажмите кнопку — текст скопируется, отправьте его нам в Max.</span></div><a class="btn" id="b_send" href="${MAX}" target="_blank" rel="noopener">Отправить в Max</a>`);
+      document.getElementById('b_send').addEventListener('click',()=>{try{navigator.clipboard.writeText(t)}catch(_){}});};
+    if(!TG_TOKEN||!TG_CHAT||TG_TOKEN.indexOf('__')===0){fb();return;}
+    const btn=document.querySelector('#bf button[type=submit]');btn.disabled=true;btn.textContent='Отправляем…';
+    fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',{method:'POST',body:new URLSearchParams({chat_id:TG_CHAT,text:t})})
+      .then(r=>r.json()).then(j=>{if(!j.ok)throw 0;done(`<div class="congrats"><div class="big">💚</div><b>Спасибо, что помогаете!</b><span>Мы всё проверим и поправим. Благодаря вам приложение становится лучше.</span></div>`);})
+      .catch(()=>fb());
+  });
+  document.getElementById('b_desc').addEventListener('input',()=>document.getElementById('f_desc').classList.remove('bad'));
+}
+
+/* ---------- выбор ---------- */
+document.querySelectorAll('.chips').forEach(c=>c.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  c.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  s[c.dataset.k]=b.dataset.v;
+  if(c.dataset.k==='comp'){mix();return;}
+  render(true);
+}));
+document.getElementById('g').addEventListener('input',mix);
+document.getElementById('months').addEventListener('input',()=>render(false));
+document.getElementById('askStk').innerHTML=stk();
+render(false);
+let shown=false;try{shown=localStorage.getItem('kx_thick_hint')==='1'}catch(e){}
+if(!shown)setTimeout(()=>{if(!sheet.classList.contains('show')){openSheet('thick');try{localStorage.setItem('kx_thick_hint','1')}catch(e){}}},12000);
+</script>
