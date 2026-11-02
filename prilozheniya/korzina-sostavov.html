@@ -259,6 +259,7 @@ document.getElementById('kcSend').addEventListener('click',function(){
  function done(html){document.getElementById('kcForm').classList.add('hide');var d=document.getElementById('kcDone');d.classList.remove('hide');d.innerHTML=html;d.scrollIntoView({behavior:'smooth',block:'start'})}
  function fb(){done('<div class="done"><div class="big">💚</div><b>Заказ почти оформлен</b><p class="sub">Нажмите кнопку — текст заказа скопируется, вставьте его в чат с нами в Max.</p><a class="btn" id="kcMax" href="'+MAX+'" target="_blank" rel="noopener">Отправить в Max</a></div>');
   document.getElementById('kcMax').addEventListener('click',function(){try{navigator.clipboard.writeText(text)}catch(_){}})}
+ if(TG_TOKEN.indexOf('__')===0){fb();return;}
  btn.disabled=true;btn.textContent='Отправляем…';
  fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',{method:'POST',body:new URLSearchParams({chat_id:TG_CHAT,text:text})})
   .then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;
