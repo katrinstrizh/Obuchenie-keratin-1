@@ -140,6 +140,15 @@ body.bugmode .z *:hover{outline:2px dashed #E0457B;outline-offset:2px}
 .bugmark{outline:3px solid #E0457B!important;outline-offset:3px;border-radius:12px;animation:bm 1.2s ease-in-out infinite}
 @keyframes bm{50%{outline-color:#F4A8B8}}
 .quote{background:#FDECEF;border-left:3px solid #E0457B;border-radius:0 12px 12px 0;padding:10px 12px;font-size:13px;color:#7A2440;font-weight:500;line-height:1.45;margin:4px 0 12px}
+.cpill{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:40;display:flex;align-items:center;gap:10px;background:#0A2F2A;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 14px 12px 18px;border-radius:50px;box-shadow:0 12px 30px rgba(10,47,42,.35);transition:transform .45s cubic-bezier(.2,.9,.2,1.2)}
+.cpill.show{transform:translate(-50%,0)}
+.cpill em{font-style:normal;background:var(--g);border-radius:50px;padding:7px 12px;font-size:13px}
+.cv{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;margin-bottom:8px;background:#fff}
+.cv.has{border-color:var(--mint);background:#E3FAF5}
+.cv b{font-size:15px}.cv span{font-size:13px;color:var(--muted);font-weight:600}
+.cq{display:flex;align-items:center;gap:8px}.cq button{width:32px;height:32px;border-radius:50%;border:0;background:#E3FAF5;color:var(--deep);font-size:18px;font-weight:800;cursor:pointer;font-family:inherit}
+.cv.has .cq button{background:#fff}.cq i{font-style:normal;font-weight:800;min-width:16px;text-align:center}
+.ctot{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0 0;font-weight:700}.ctot b{font-size:24px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
 </style>
 
 <div class="app">
@@ -275,6 +284,7 @@ body.bugmode .z *:hover{outline:2px dashed #E0457B;outline-offset:2px}
 </div>
 
 <div class="bugbar" id="bugBar"><span>Нажмите на место, где ошибка</span><button type="button" id="bugCancel">Отмена</button></div>
+<a class="cpill" id="cpill" href="https://kupit-keratin.ru/#zakaz" target="_top">🛒 <span id="cpillT">Корзина</span><em>Оформить →</em></a>
 <div class="ov" id="ov" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -495,7 +505,7 @@ const bottle=c=>`<svg class="bt" viewBox="0 0 46 62" aria-hidden="true"><rect x=
 function card(k,dur){const x=P[k];return `<div class="pc"><div class="top">${bottle(x.cap)}<div><b>${x.n}</b><span class="tg">${x.tg}</span>${dur?`<br><span class="dur">${dur}</span>`:''}</div></div>
  <p>${x.t}</p>
  <details><summary>Что внутри и как это работает</summary><ul>${x.c.map(c=>`<li><b>${c[0]}</b> — ${c[1]}</li>`).join('')}</ul></details>
- <button class="ord" type="button" onclick="openOrder('${x.n.replace(/'/g,'')}','Калькулятор температуры → рекомендация составов')">Заказать ${x.n.split(' (')[0]}</button></div>`;}
+ <button class="ord" type="button" onclick="openCart('${k==='rep'?'hr':k}')">🛒 В корзину ${x.n.split(' (')[0]}</button></div>`;}
 const DUR={
  thick:{shine:'эффект 6–8 месяцев',afro:'эффект 6–7 месяцев, пушистость через 3–4',fix:'чуть меньше, чем Afro',plastic:'до 5 месяцев, пушистость через 2–3'},
  mid:{shine:'эффект до 8 месяцев',afro:'эффект 6–7 месяцев',fix:'эффект 5–6 месяцев',plastic:'эффект до 5 месяцев'},
@@ -580,7 +590,7 @@ const SHEETS={
     <li>Тщательно смойте водой, отожмите полотенцем.</li>
     <li>По желанию: One Moment (пептидный филлер) на 1–2 минуты, смыть. Маска по типу волос и/или спрей 7 секунд.</li>
    </ol>
-   <button class="btn" type="button" onclick="openOrder('Hair.Repair','Калькулятор температуры → рекомендация реконструкции')">Заказать Hair.Repair</button>`;
+   <button class="btn" type="button" onclick="openCart('hr')">🛒 Hair.Repair в корзину</button>`;
   return h;}
 };
 
@@ -682,6 +692,27 @@ document.querySelectorAll('.chips').forEach(c=>c.addEventListener('click',e=>{
 }));
 document.getElementById('g').addEventListener('input',mix);
 document.getElementById('months').addEventListener('input',()=>render(false));
+
+/* ---------- общая корзина с сайтом kupit-keratin.ru ---------- */
+const SHOP='https://kupit-keratin.ru/#zakaz';
+const CAT={shine:['Keratin Shine',[['500 мл',6000],['150 мл',2100]]],afro:['JHair Afro',[['500 мл',6000],['150 мл',2100]]],fix:['Fix Hair',[['500 мл',3900],['120 мл',1350]]],plastic:['Plastic Hair Blonde',[['500 мл',5200],['150 мл',1900]]],bixy:['BotoHair Bixy',[['500 мл',5200],['150 мл',1900]]],nano:['NanoPlastica',[['150 мл',3100]]],hr:['Hair.Repair',[['1 л',8000],['250 мл',3250]]],aid:['Keratin Aid',[['75 мл',950]]],eg:['Extra Gloss',[['200 мл',2990],['60 мл',999]]],ss:['S+S',[['200 мл',2990],['60 мл',999]]]};
+function cLoad(){try{return JSON.parse(localStorage.getItem('ke_cart')||'{}')||{}}catch(e){return {}}}
+function cSave(c){try{localStorage.setItem('ke_cart',JSON.stringify(c))}catch(e){}}
+function cSum(c){let n=0,t=0;Object.keys(c).forEach(k=>{const a=k.split('|'),p=CAT[a[0]];if(!p||!c[k])return;n+=c[k];t+=p[1][+a[1]][1]*c[k]});return {n,t}}
+const rub=v=>Math.round(v).toLocaleString('ru-RU')+' ₽';
+function pill(){const x=cSum(cLoad()),el=document.getElementById('cpill');el.classList.toggle('show',x.n>0);document.getElementById('cpillT').textContent=x.n+' шт · '+rub(x.t);}
+let CUR='';
+function cartHtml(){const p=CAT[CUR],c=cLoad(),x=cSum(c);
+ return `<div class="sh-head">${stk()}<div><b>${p[0]}</b><span>Выберите объём — товар попадёт в корзину на сайте</span></div></div>`+
+ p[1].map((v,i)=>{const k=CUR+'|'+i,q=c[k]||0;return `<div class="cv${q?' has':''}"><div><b>${v[0]}</b><br><span>${rub(v[1])}</span></div><div class="cq"><button type="button" onclick="cAdd('${k}',-1)">−</button><i>${q}</i><button type="button" onclick="cAdd('${k}',1)">+</button></div></div>`}).join('')+
+ (CUR!=='aid'&&CUR!=='hr'?`<div class="note">💡 К кератину часто берут <b>Keratin Aid</b> — меньше запаха и дыма. <button class="btn2" type="button" style="margin-top:8px" onclick="CUR='aid';document.getElementById('sheetBody').innerHTML=cartHtml()">Добавить Keratin Aid</button></div>`:'')+
+ `<div class="ctot"><span>В корзине: ${x.n} шт</span><b>${rub(x.t)}</b></div>
+ <p class="sub" style="font-size:12px;margin-top:4px">🎁 Курс в подарок от 6 000 ₽ · 🚚 доставка бесплатно от 3 000 ₽</p>
+ ${x.n?`<a class="btn" href="${SHOP}" target="_top">Оформить заказ →</a>`:''}`;}
+function openCart(id){CUR=id;openSheet('cart');}
+function cAdd(k,d){const c=cLoad();c[k]=Math.max(0,(c[k]||0)+d);if(!c[k])delete c[k];cSave(c);document.getElementById('sheetBody').innerHTML=cartHtml();pill();}
+SHEETS.cart=()=>cartHtml();
+pill();
 document.getElementById('askStk').innerHTML=stk();
 render(false);
 let shown=false;try{shown=localStorage.getItem('kx_thick_hint')==='1'}catch(e){}

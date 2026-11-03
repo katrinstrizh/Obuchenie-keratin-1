@@ -68,6 +68,7 @@
 .kc .note{font-size:12px;color:var(--muted);font-weight:500;line-height:1.5;margin-top:8px}
 </style>
 
+<div id="zakaz"></div>
 <div class="kc" id="kc">
  <div class="bl b1"></div><div class="bl b2"></div>
  <div class="z">
@@ -155,6 +156,9 @@ var TIPS={
 };
 /* ================================================== */
 var root=document.getElementById('kc'), cart={}, group='str';
+try{cart=JSON.parse(localStorage.getItem('ke_cart')||'{}')||{}}catch(e){cart={}}
+Object.keys(cart).forEach(function(k){var a=k.split('|'),p=P.filter(function(x){return x[0]===a[0]})[0];if(!p||!p[5][+a[1]])delete cart[k]});
+function saveCart(){try{localStorage.setItem('ke_cart',JSON.stringify(cart))}catch(e){}}
 var promoOn=new Date()<=new Date(PROMO_UNTIL+'T23:59:59');
 function fmt(n){return Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ')+' ₽'}
 function bottle(c){return '<svg class="bt" viewBox="0 0 34 46" aria-hidden="true"><rect x="11" y="0" width="12" height="7" rx="2" fill="'+c+'"/><rect x="4" y="9" width="26" height="37" rx="8" fill="#F1F6F5" stroke="#d3e6e2"/><rect x="9" y="20" width="16" height="12" rx="3" fill="'+c+'" opacity=".8"/></svg>'}
@@ -183,6 +187,7 @@ function calc(){
 }
 function next(big){for(var i=HOME_LEVELS.length-1;i>=0;i--){if(big<HOME_LEVELS[i][0])return HOME_LEVELS[i]}return null}
 function render(){
+ saveCart();
  var c=calc(),L=document.getElementById('kcLines');
  if(!c.lines.length){L.innerHTML='<div class="empty">Пока пусто — добавьте составы кнопкой «+»</div>'}
  else{L.innerHTML=c.lines.map(function(l){return '<div class="line"><span>'+l[0]+'</span><em>'+fmt(l[1])+'</em></div>'}).join('')+
@@ -263,9 +268,10 @@ document.getElementById('kcSend').addEventListener('click',function(){
  btn.disabled=true;btn.textContent='Отправляем…';
  fetch('https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage',{method:'POST',body:new URLSearchParams({chat_id:TG_CHAT,text:text})})
   .then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;
-   done('<div class="done"><div class="big">🎉</div><b>Заказ отправлен!</b><p class="sub">Мы всё проверим, посчитаем и скоро напишем вам. Спасибо, что вы с нами!</p></div>')})
+   cart={};saveCart();done('<div class="done"><div class="big">🎉</div><b>Заказ отправлен!</b><p class="sub">Мы всё проверим, посчитаем и скоро напишем вам. Спасибо, что вы с нами!</p></div>')})
   .catch(fb);
 });
 tabs();list();render();delUpd();
+if(location.hash==='#zakaz'&&Object.keys(cart).length)setTimeout(function(){root.scrollIntoView({behavior:'smooth'})},600);
 })();
 </script>
